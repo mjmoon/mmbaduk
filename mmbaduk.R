@@ -231,7 +231,7 @@ addstone <- function(stone = NULL, on = NULL, play = NULL, i = 0, n = NULL){
     stop(paste(paste("Move not allowed at ", on[1]), on[2]))    
   }
   
-  if(play$board$kocount[ind] > 0){
+  if(play$board$kocount[ind] > 1){
     stop(paste(paste("Move not allowed at ", on[1]), on[2]))
   }
   
@@ -441,3 +441,247 @@ winner <- function(play = NULL, komi = NULL){
                    1, 2)
   return(winner)
 }
+
+#############################################################
+# plotboard: plot a (n x n) baduk board                     #
+#############################################################
+plotboard <- function(n = NULL){
+  refpos <- c(ceiling((n+1)/4-1),(n+1)/2,floor((n+1)*3/4+1))
+  refpts <- data.frame(x = rep(refpos,3), y = rep(refpos,each=3))
+  par(mar = c(0,4,4,4))
+  plot(refpts, xlim = c(1,n), ylim = c(1,n), 
+       xlab = "", ylab = "", axes = FALSE, pch = 16,
+       col = grey(0.5), mar = 0)
+  # title(main = "mmbaduk v0.1", line = 3)
+  abline(h = c(1:n), v = c(1:n), lty = "dotted", col = grey(0.5))
+  axis(3, tick = FALSE, at = c(1:n), labels = LETTERS[1:n])
+  axis(2, tick = FALSE, at = c(1:n), labels = c(1:n), las = 2)
+}
+
+#############################################################
+# plotscores: plot scores                                   #
+#############################################################
+plotscores <- function(scores = NULL, n = NULL){
+  par(mar = c(1,0,0,0))
+  plot(NULL, xlim = c(0.5,2.5), ylim = c(0,1),
+       axes = FALSE, ylab = "", xlab = "")
+  title(main = "Scores", line = -3.5)
+  text(c(1,2), 0.7, labels = c("Black", "White"))
+  text(1, c(0,0.2,0.4), cex = 0.7,
+       labels = c(paste("Captured:", scores$cap.black),
+                  paste("Territory:", scores$terr.black),
+                  paste("On Board:", scores$on.black)))
+  text(2, c(0,0.2,0.4), cex = 0.7,
+       labels = c(paste("Captured:", scores$cap.white),
+                  paste("Territory:", scores$terr.white),
+                  paste("On Board:", scores$on.white)))
+}
+
+#############################################################
+# plotgame: plot the game state                             #
+#  dep:plotboard; plotscores                                #
+#############################################################
+plotgame <- function(play = NULL, n = NULL, i = NULL,
+                     plotscrs = TRUE){
+  blacks <- subset(play[[1]], on == 1)
+  whites <- subset(play[[1]], on == 2)
+  
+  if(plotscrs)
+    layout(matrix(c(1,2),2,1), heights = c(0.8, 0.15))
+  plotboard(n)
+  points(blacks$x, blacks$y, pch = 16, cex = 2.5)
+  points(whites$x, whites$y, pch = 21, bg = "white", cex = 2.5)
+  
+  if(sum(play$board$playnum == i) > 0)
+    text(play$board$x[play$board$playnum == i], 
+         play$board$y[play$board$playnum == i], 
+         labels = i, col = "red", cex = 0.8)
+  
+  if(plotscrs)
+    plotscores(play$scores)
+}
+
+#############################################################
+# plotterr: plot the game state with territories            #
+#  dep:plotboard; plotscores                                #
+#############################################################
+plotterr <- function(play = NULL, n = NULL, plotscrs = TRUE){
+  blacks <- subset(play$board, on == 1)
+  whites <- subset(play$board, on == 2)
+  black.terr <- subset(play$board, terr == 1)
+  white.terr <- subset(play$board, terr == 2)
+  
+  if(plotscrs)
+    layout(matrix(c(1,2),2,1), heights = c(0.8, 0.15))
+  
+  plotboard(n)
+  points(black.terr$x, black.terr$y, pch = 16, 
+         col = grey(0.7), cex = 2.2)
+  points(white.terr$x, white.terr$y, pch = 21, 
+         col = grey(0.7), bg = grey(0.9), cex = 2.2)
+  
+  points(blacks$x, blacks$y, pch = 16, cex = 2.5)
+  points(whites$x, whites$y, pch = 21, bg = "white", cex = 2.5)
+  
+  if(nrow(blacks) >0)
+    text(blacks$x, blacks$y, labels = blacks$playnum, 
+         col = "white", cex = 0.8)
+  if(nrow(whites) >0)
+    text(whites$x, whites$y, labels = whites$playnum, 
+         col = "black", cex = 0.8)
+  
+  if(plotscrs)
+    plotscores(play$scores)
+}
+
+#############################################################
+# plottest: plot the game state with territories,           #
+#           eyes, and moves not allowed                     #
+#  dep:plotboard; plotscores                                #
+#############################################################
+plottest <- function(play = NULL, n = NULL, i = NULL){
+  blacks <- subset(play$board, on == 1)
+  whites <- subset(play$board, on == 2)
+  black.terr <- subset(play$board, terr == 1)
+  white.terr <- subset(play$board, terr == 2)
+  black.nallow <- subset(play$board, allowed.black == FALSE)
+  white.nallow <- subset(play$board, allowed.white == FALSE)
+  black.eye <- subset(play$board, eye.black == TRUE)
+  white.eye <- subset(play$board, eye.white == TRUE)
+  
+  layout(matrix(c(1,2),2,1), heights = c(0.8, 0.15))
+  plotboard(n)
+  points(black.terr$x, black.terr$y, pch = 16, 
+         col = grey(0.7), cex = 2.2)
+  points(white.terr$x, white.terr$y, pch = 21, 
+         col = grey(0.7), bg = grey(0.9), cex = 2.2)
+  
+  points(black.nallow$x, black.nallow$y, pch = 4, col = "blue")
+  points(white.nallow$x, white.nallow$y, pch = 4, col = "red")
+  
+  points(black.eye$x, black.eye$y, pch = 3, col = "blue")
+  points(white.eye$x, white.eye$y, pch = 3, col = "red")
+  
+  points(blacks$x, blacks$y, pch = 16, cex = 2.5)
+  points(whites$x, whites$y, pch = 21, bg = "white", cex = 2.5)
+  
+  if(sum(play$board$playnum == i) >0)
+    text(play$board$x[play$board$playnum == i], 
+         play$board$y[play$board$playnum == i], 
+         labels = i, col = "red", cex = 0.8)
+  
+  plotscores(play$scores)
+}
+
+########################## ggplot2 version ##########################
+# plotboard <- function(n = NULL){
+#   refpos <- c(ceiling((n+1)/4-1),(n+1)/2,floor((n+1)*3/4+1))
+#   refpts <- data.frame(x = rep(refpos,3), y = rep(refpos,each=3))
+#   
+#   board <- ggplot(data = refpts, aes(x = x, y = y)) + 
+#     labs(x = "", y = "", title = "") +
+#     geom_hline(yintercept = c(1:n), color = "dark grey") +
+#     geom_vline(xintercept = c(1:n), color = "dark grey") +
+#     geom_point(size = 2, alpha = 0.8)
+#   
+#     return(board)
+# }
+# 
+# plotgame <- function(play = NULL, n = NULL, board = NULL, i = NULL){
+#   game <- board +
+#     geom_point(data = subset(play[[1]], on ==1), aes(x = x, y = y), 
+#                color = "black", size = 8) +
+#     geom_point(data = subset(play[[1]], on ==2), aes(x = x, y = y), 
+#                shape = 21, fill = "white", size = 8) +
+#     geom_text(data = subset(play[[1]], playnum == i), 
+#               aes(x = x, y = y, label = playnum), 
+#               color = "red", fontface = "bold")
+#   
+#   scores <- plotscores(play, n)
+#   
+#   boardplt <- grid.arrange(scores[[1]], game, scores[[2]],
+#                            ncol=1, nrow=3, layout_matrix = rbind(1,2,3), 
+#                            heights = c(2, 8, 2))
+#   return(boardplt)
+# }
+# 
+# plotscores <- function(play = NULL, n = NULL){
+#   stonesize <- 4
+#   maxscale <- n*n/2
+#   scrplt.black <- ggplot(data = play[[3]]) + theme_minimal() +
+#     theme(axis.text.x = element_blank()) +
+#     labs(x = "", y = "", title = "Black's Score") +
+#     geom_point(aes(x = paste("Captured:", cap.black), y = min(maxscale,cap.black)), 
+#                shape = 21, fill = "white", size = stonesize) +
+#     geom_point(aes(x = paste("Territory:", terr.black), y = min(maxscale,terr.black)), 
+#                alpha = 0.5, size = stonesize) +
+#     geom_point(aes(x = paste("On Board:", on.black), y = min(maxscale,on.black)), 
+#                size = stonesize) +
+#     coord_flip(ylim = c(0,maxscale))
+#   
+#   scrplt.white <- ggplot(data = play[[3]]) + theme_minimal() +
+#     theme(axis.text.x = element_blank()) +
+#     labs(x = "", y = "", title = "White's Score") +
+#     geom_point(aes(x = paste("Captured:", cap.white), y = min(maxscale,cap.white)), 
+#                size = stonesize) +
+#     geom_point(aes(x = paste("Territory:", terr.white), y = min(maxscale,terr.white)), 
+#                color = "grey", alpha = 0.5, size = stonesize) +
+#     geom_point(aes(x = paste("On Board:", on.white), y = min(maxscale,on.white)), 
+#                shape = 21, fill = "white", size = stonesize) +
+#     coord_flip(ylim = c(0,maxscale))
+#   
+#   return(list(scrplt.black, scrplt.white))
+# }
+# 
+# plotterr <- function(play = NULL, n = NULL, board = NULL){
+#   terr <- board +
+#     geom_point(data = subset(play[[1]], on ==1), aes(x = x, y = y), 
+#                color = "black", size = 8) +
+#     geom_point(data = subset(play[[1]], on ==2), aes(x = x, y = y), 
+#                shape = 21, fill = "white", size = 8) +
+#     geom_point(data = subset(play[[1]], terr ==1), aes(x = x, y = y), 
+#                color = "black", size = 8, alpha = 0.5) +
+#     geom_point(data = subset(play[[1]], terr ==2), aes(x = x, y = y), 
+#                color = "grey", size = 8, alpha = 0.5) +
+#     geom_text(data = subset(play[[1]], on == 1),
+#               aes(x = x, y = y, label = playnum), color = "white") +
+#     geom_text(data = subset(play[[1]], on == 2),
+#               aes(x = x, y = y, label = playnum), color = "black")
+#   
+#   scores <- plotscores(play, n)
+#   
+#   terrplot <- grid.arrange(scores[[1]], terr, scores[[2]],
+#                            ncol=1, nrow=3, layout_matrix = rbind(1,2,3), 
+#                            heights = c(2, 8, 2))
+#   return(terrplot)
+# }
+# 
+# plottest <- function(play = NULL, n = NULL, board = NULL, i = NULL){
+#   test <- board +
+#     geom_point(data = subset(play[[1]], terr ==1), aes(x = x, y = y), 
+#                color = "black", size = 8, alpha = 0.5) +
+#     geom_point(data = subset(play[[1]], terr ==2), aes(x = x, y = y), 
+#                color = "grey", size = 8, alpha = 0.5) +
+#     geom_point(data = subset(play[[1]], on ==1), aes(x = x, y = y), 
+#                color = "black", size = 8) +
+#     geom_point(data = subset(play[[1]], on ==2), aes(x = x, y = y), 
+#                shape = 21, fill = "white", size = 8) +
+#     geom_point(data = subset(play[[1]], allowed.black == FALSE), aes(x = x, y = y), 
+#                shape = 21, color = "red", size = 6) +
+#     geom_point(data = subset(play[[1]], allowed.white == FALSE), aes(x = x, y = y), 
+#                shape = 21, color = "green", size = 5) +
+#     geom_point(data = subset(play[[1]], eye.black == TRUE), aes(x = x, y = y), 
+#                shape = 4, color = "red", size = 5) +
+#     geom_point(data = subset(play[[1]], eye.white == TRUE), aes(x = x, y = y), 
+#                shape = 4, color = "green", size = 5) +
+#     geom_text(data = subset(play[[1]], playnum == i), 
+#               aes(x = x, y = y, label = playnum), 
+#               color = "red", fontface = "bold")
+#   
+#   scores <- plotscores(play, n)
+#   
+#   testplot <- grid.arrange(scores[[1]], test, scores[[2]],
+#                            ncol=1, nrow=3, layout_matrix = rbind(1,2,3), 
+#                            heights = c(2, 8, 2))
+#   return(testplot)
+# }

@@ -1,11 +1,11 @@
 #############################################################
-# mmbaduk v0.1 - Baduk (Go) player by michael moon          #
+# mmbaduk - Baduk (Go) player by michael moon               #
 #                                                           #
 # Shiny UI                                                  #
 #                                                           #
 #############################################################
 shinyUI(fluidPage(
-  titlePanel("mmbaduk v0.0"),
+  titlePanel("mmbaduk v0.1"),
   fluidRow(
     column(3,
            selectInput("mode", "Select a game mode.", 

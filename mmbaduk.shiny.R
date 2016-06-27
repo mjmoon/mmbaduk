@@ -1,5 +1,5 @@
 #############################################################
-# mmbaduk v0.1 - Baduk (Go) player by michael moon          #
+# mmbaduk - Baduk (Go) player by michael moon               #
 #                                                           #
 # game interface (Shiny)                                    #
 #                                                           #
@@ -84,6 +84,23 @@ playmove <- function(on, output){
   mmbaduk$i <<- mmbaduk$i + 1
   output$status <- renderText({
     paste(ifelse(mmbaduk$i %% 2 == 1, "Black", "White"), "'s turn", sep = "")
+  })
+  return(NULL)
+}
+
+#############################################################
+# quitplay: end the current game and plot the territories   #
+#   dep: playterr; winner                                   #
+#############################################################
+quitplay <- function(output){
+  output$game <- renderPlot({
+    plotterr(mmbaduk$play, mmbaduk$size, plotscrs = FALSE)
+  })
+  
+  output$status <- renderText({
+    paste(ifelse(winner(mmbaduk$play, mmbaduk$komi) == 1,
+                 "Black", "White"), 
+          "Wins")
   })
   return(NULL)
 }

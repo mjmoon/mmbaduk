@@ -1,8 +1,8 @@
 #############################################################
-# mmbaduk v0.1 - Baduk (Go) player by michael moon          #
+# mmbaduk - Baduk (Go) player by michael moon               #
 #                                                           #
 # Shiny server                                              #
-#                                                           #
+# rsconnect::deployApp(".") to deploy                                   #
 #############################################################
 source("mmbaduk.shiny.R")
 
@@ -50,19 +50,8 @@ shinyServer(function(input, output, session) {
   observeEvent(input$quit, {
     waitplay()
     resetinput(session)
-    
-    output$game <- renderPlot({
-      plotterr(mmbaduk$play, mmbaduk$size, plotscrs = FALSE)
-    })
-    
-    output$status <- renderText({
-      paste(ifelse(winner(mmbaduk$play, mmbaduk$komi) == 1,
-                   "Black", "White"), 
-            "Wins")
-    })
-    
+    quitplay(output)
     printscores(output)
     endplay()
-    mmbaduk$i <<- mmbaduk$i + 1
   })
 })

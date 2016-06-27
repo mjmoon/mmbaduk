@@ -1,5 +1,5 @@
 #############################################################
-# mmbaduk v0.1 - Baduk (Go) player by michael moon          #
+# mmbaduk - Baduk (Go) player by michael moon               #
 #                                                           #
 # game interface (R)                                        #
 #                                                           #

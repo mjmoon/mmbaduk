@@ -124,6 +124,8 @@ startplay <- function(){
   shinyjs::disable("mode")
   shinyjs::disable("size")
   shinyjs::disable("komi")
+  shinyjs::show("game")
+  shinyjs::hide("inst")
 }
 
 #############################################################
@@ -154,6 +156,8 @@ endplay <- function(){
   shinyjs::enable("mode")
   shinyjs::enable("size")
   shinyjs::enable("komi")
+  shinyjs::hide("game")
+  shinyjs::show("inst")
 }
 
 #############################################################
@@ -188,3 +192,54 @@ printscores <- function(output){
   output$cap.b <- renderText({mmbaduk$play$scores$cap.black})
   output$cap.w <- renderText({mmbaduk$play$scores$cap.white})
 }
+
+#############################################################
+# printinst: print game instruction                         #
+#############################################################
+printinst <- function(output){
+  output$inst <- renderUI({
+    HTML("<hr/><div style='display: table; width: 100%'>
+<div style='float:left; display: table-cell; width: 50%; padding-right: 5px'>
+         <h4>How to start</h4>
+         <b>Select a game mode.</b>
+         <ol>
+         <li>You can play with another person.</li>
+         <li>You can play with the computer as black.</li>
+         <li>You can play with the computer as white.</li>
+         </ol>
+         <b>Select a board size.</b>
+         <p>You can play on a 5x5, 9x9, or 19x19 board.</p>
+         <b>Select a komi.</b>
+         <p>This is the advantage point given to white for playing second.</p>
+         <b>Click start</b>
+         <p>The selected game will start</p>
+         </div>
+         <div style='float:right; display: table-cell; width: 50%; padding-left: 5px'>
+         <h4>How to play</h4>
+         <b>Input position.</b>
+         <p>All positions should be entered using a letter for x-axis followed by a number for y-axis (e.g., A1).</p>
+         <b>Play stone.</b>
+         <p>Clicking the buttom will place a stone on the given position.</p>
+         <b>Skip turn.</b>
+         <p>You may skip a turn.</p>
+         <b>Quit game.</b>
+         <p>A game will end only when the buttom is clicked. You may start a new game once a game ends.</p>
+         </div>
+         <div style='display: table; width: 100%'>
+         <div style='float:left; display: table-cell; width: 50%; padding-right: 5px'>
+         <h4>Scoring</h4>
+         <p>A winner is announced at the end of the game based on the current score of number of territory + stones on board (+ komi for white). Note that dead stones are not recognized (yet).</p>
+         </div>
+         <div style='float:right; display: table-cell; width: 50%; padding-left: 5px'>
+         <h4>Contact</h4>
+         <p>Please visit <a href='https://github.com/mjmoon/mmbaduk' target='_blank'>
+         https://github.com/mjmoon/mmbaduk</a> and <a href='http://blog.micbon.com/' target='_blank'>http://blog.micbon.com/</a> for more information and comments or to report errors.</p>
+         </div>
+         </div>
+          <h5><b>Note:</b> The current computer player has no intelligence. It selects a random play among available moves.</h5>
+         <hr/>
+         ")
+    })
+}
+
+  

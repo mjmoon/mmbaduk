@@ -2,15 +2,14 @@
 # mmbaduk - Baduk (Go) player by michael moon               #
 #                                                           #
 # Shiny server                                              #
-# rsconnect::deployApp(".") to deploy                                   #
+# rsconnect::deployApp(".") to deploy                       #
 #############################################################
 source("mmbaduk.shiny.R")
 
 shinyServer(function(input, output, session) {
   
-  output$game <- renderPlot({
-    plotboard(19)
-  })
+  shinyjs::hide("game")
+  printinst(output)
   output$status <- renderText({
     "Click start"
   })

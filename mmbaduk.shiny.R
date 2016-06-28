@@ -16,36 +16,48 @@ mmbaduk <- NULL
 # mode 2: player vs. computer                               #
 # mode 3: computer vs. player                               #
 #############################################################
-initgame <- function(mode, size, komi){
-  print(as.numeric(mode))
-  print(as.numeric(size))
-  print(as.numeric(komi))
-  return(list(play = initboard(as.numeric(size)),
-              size = as.numeric(size),
-              mode = as.numeric(mode), 
-              komi = as.numeric(komi),
-              i = 1))
+initgame <- function(mode, size, komi, output, session){
+  mmbaduk <<- list(play = initboard(as.numeric(size)),
+                   size = as.numeric(size),
+                   mode = as.numeric(mode), 
+                   komi = as.numeric(komi),
+                   i = 1)
+  
+  output$game <- renderPlot({
+    plotgame(mmbaduk$play, mmbaduk$size, mmbaduk$i, plotscrs = FALSE)
+  })
+  output$status <- renderText({
+    paste("Black's turn")
+  })
+  
+  output$on.b <- renderText({0})
+  output$on.w <- renderText({0})
+  output$terr.b <- renderText({0})
+  output$terr.w <- renderText({0})
+  output$cap.b <- renderText({0})
+  output$cap.w <- renderText({0})
+  
+  shinyjs::enable("lastplay")
+  updateTextInput(session, "lastplay", value = "")
+  shinyjs::disable("lastplay")
+  shinyjs::enable("currplay")
+  updateTextInput(session, "currplay", value = "")
+  shinyjs::disable("currplay")
+  return(NULL)
 }
 
 #############################################################
-# playuser: parse Z0 inputs to c(x, y) coordinates          # 
-#           and play if among valid moves                   #
+# playuser: play at clicked position if among valid moves   #
 #   dep: playmove; validmoves                               #
 #############################################################
-playuser <- function(z0, output){
-  x <- which(LETTERS == substr(z0, 1, 1) | 
-               letters == substr(z0, 1, 1))
-  y <- as.numeric(substr(z0, 2, nchar(z0)))
-  
-  if(length(x) > 0 & !is.na(y))
-    if(any(apply(validmoves(), 1, 
-                 function(x, want) isTRUE(all.equal(x, want)), 
-                 c(x,y)))
-       ) {
-      playmove(c(x,y), output)
-    }
+playuser <- function(pos, output){
+  if(any(apply(validmoves(), 1, 
+               function(x, want) isTRUE(all.equal(x, want)), 
+               pos))
+  ) {
+    playmove(pos, output)
+  }
   else output$status <- renderText({"Invalid move"})
-  else output$status <- renderText({"Invalid input"})
   return(NULL)
 }
 
@@ -53,13 +65,16 @@ playuser <- function(z0, output){
 # playrandom: play a random move among valid moves          #
 #   dep: playmove; validmoves                               #
 #############################################################
-playrandom <- function(output){
+playrandom <- function(output, session){
   if((mmbaduk$mode == 2 & mmbaduk$i %% 2 == 0) |
      (mmbaduk$mode == 3 & mmbaduk$i %% 2 == 1) ) {
     vmoves <- validmoves()
     if(nrow(vmoves) > 0){
       randi <- floor(runif(1,min = 1, max = nrow(vmoves)))
       on <- vmoves[randi,]
+      shinyjs::enable("lastplay")
+      updateTextInput(session, "lastplay", value = printpos(on))
+      shinyjs::disable("lastplay")
     }
     else on <- c(0,0)
     playmove(on, output)
@@ -132,7 +147,6 @@ startplay <- function(){
 # inplay: enable game controllers                           #
 #############################################################
 inplay <- function(){
-  shinyjs::enable("pos")
   shinyjs::enable("play")
   shinyjs::enable("skip")
   shinyjs::enable("quit")
@@ -142,7 +156,6 @@ inplay <- function(){
 # waitplay: disable game controllers                       #
 #############################################################
 waitplay <- function(){
-  shinyjs::disable("pos")
   shinyjs::disable("play")
   shinyjs::disable("skip")
   shinyjs::disable("quit")
@@ -161,22 +174,21 @@ endplay <- function(){
 }
 
 #############################################################
-# resetinput: empty input text box                          #
+# resetgame: reset game to NULL                             #
 #############################################################
-resetinput <- function(session){
-  updateTextInput(session, "pos", value = "")
-}
-
-#############################################################
-# resetscores: set scores to 0                              #
-#############################################################
-resetscores <- function(output){
-  output$on.b <- renderText({0})
-  output$on.w <- renderText({0})
-  output$terr.b <- renderText({0})
-  output$terr.w <- renderText({0})
-  output$cap.b <- renderText({0})
-  output$cap.w <- renderText({0})
+resetgame <- function(output, session){
+  mmbaduk$play <<- initboard(as.numeric(size))
+  output$game <- renderPlot({
+    plotgame(initboard(mmbaduk$size), mmbaduk$size, NULL, plotscrs = FALSE)
+  })
+  
+  shinyjs::enable("lastplay")
+  updateTextInput(session, "lastplay", value = "")
+  shinyjs::disable("lastplay")
+  shinyjs::enable("currplay")
+  updateTextInput(session, "currplay", value = "")
+  shinyjs::disable("currplay")
+  return(NULL) 
 }
 
 #############################################################
@@ -191,6 +203,7 @@ printscores <- function(output){
   }
   output$cap.b <- renderText({mmbaduk$play$scores$cap.black})
   output$cap.w <- renderText({mmbaduk$play$scores$cap.white})
+  return(NULL)
 }
 
 #############################################################
@@ -203,32 +216,32 @@ printinst <- function(output){
          <h4>How to start</h4>
          <b>Select a game mode.</b>
          <ol>
-         <li>You can play with another person.</li>
-         <li>You can play with the computer as black.</li>
-         <li>You can play with the computer as white.</li>
+         <li>Play with another person.</li>
+         <li>Play with the computer as black.</li>
+         <li>Play with the computer as white.</li>
          </ol>
          <b>Select a board size.</b>
-         <p>You can play on a 5x5, 9x9, or 19x19 board.</p>
+         <p>Select among 5x5, 9x9, and 19x19 boards.</p>
          <b>Select a komi.</b>
-         <p>This is the advantage point given to white for playing second.</p>
-         <b>Click start</b>
-         <p>The selected game will start</p>
+         <p>Select the advantage points given to white.</p>
+         <b>Start</b>
+         <p>Click the button to start the selected game.</p>
          </div>
          <div style='float:right; display: table-cell; width: 50%; padding-left: 5px'>
          <h4>How to play</h4>
-         <b>Input position.</b>
-         <p>All positions should be entered using a letter for x-axis followed by a number for y-axis (e.g., A1).</p>
+         <b>Select a position.</b>
+         <p>Click on a desired position on the board. The selected position will be highlighted.</p>
          <b>Play stone.</b>
-         <p>Clicking the buttom will place a stone on the given position.</p>
+         <p>Click the buttom to confirm the move.</p>
          <b>Skip turn.</b>
          <p>You may skip a turn.</p>
          <b>Quit game.</b>
-         <p>A game will end only when the buttom is clicked. You may start a new game once a game ends.</p>
+         <p>Click the button to end the current game. You may start a new game once a game ends.</p>
          </div>
          <div style='display: table; width: 100%'>
          <div style='float:left; display: table-cell; width: 50%; padding-right: 5px'>
          <h4>Scoring</h4>
-         <p>A winner is announced at the end of the game based on the current score of number of territory + stones on board (+ komi for white). Note that dead stones are not recognized (yet).</p>
+         <p>Score is calclated as <b>number of territory + stones on board (+ komi for white)</b>. All stones on the board are considered live.</p>
          </div>
          <div style='float:right; display: table-cell; width: 50%; padding-left: 5px'>
          <h4>Contact</h4>
@@ -242,4 +255,32 @@ printinst <- function(output){
     })
 }
 
-  
+#############################################################
+# getxy: return a vector of a xy coordinate for mouse inputs#
+#############################################################
+getxy <- function(pos){
+  if(is.null(pos))
+    return(NULL)
+  return(c(round(pos$x), round(pos$y)))
+}
+
+#############################################################
+# printpos: print position in A0 coordinate                 #
+#   dep: getxy                                              #
+#############################################################
+printpos <- function(pos){
+  return(
+    paste(LETTERS[pos[1]], pos[2], sep = "")
+  )
+}
+
+#############################################################
+# plotpos: plot a shaded dot on a given position            #
+#############################################################
+plotpos <- function(pos, output){
+  output$game <- renderPlot({
+    plotgame(mmbaduk$play, mmbaduk$size, mmbaduk$i, plotscrs = FALSE)
+    points(pos[1], pos[2], col = NULL, bg = rgb(0,0,0, 0.3), pch = 21, cex = 2.5)
+  })
+  return(NULL)
+}

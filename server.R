@@ -7,48 +7,54 @@
 source("mmbaduk.shiny.R")
 
 shinyServer(function(input, output, session) {
-  
-  shinyjs::hide("game")
-  printinst(output)
-  output$status <- renderText({
-    "Click start"
-  })
+  endplay()
   waitplay()
-  resetscores(output)
+  shinyjs::disable("lastplay")
+  shinyjs::disable("currplay")
+  printinst(output)
+  output$status <- renderText({"Click start"})
   
   observeEvent(input$start, {
     startplay()
-    mmbaduk <<- initgame(input$mode, input$size, input$komi)
-    output$game <- renderPlot({
-      plotgame(mmbaduk$play, mmbaduk$size, mmbaduk$i, plotscrs = FALSE)
-    })
-    output$status <- renderText({
-      paste("Black's turn")
-    })
-    playrandom(output)
+    initgame(input$mode, input$size, input$komi, output, session)
+    playrandom(output, session)
     inplay()
-    resetscores(output)
-    resetinput(session)
+  })
+  
+  observeEvent(input$clickpos, {
+    mmbaduk$on <<- getxy(input$clickpos)
+    shinyjs::enable("currplay")
+    updateTextInput(session, "currplay", value = printpos(mmbaduk$on))
+    shinyjs::disable("currplay")
+    plotpos(mmbaduk$on, output)
   })
   
   observeEvent(input$play, {
     waitplay()
-    resetinput(session)
-    playuser(input$pos, output)
-    playrandom(output)
+    playuser(mmbaduk$on, output)
+    shinyjs::enable("lastplay")
+    updateTextInput(session, "lastplay", value = input$currplay)
+    shinyjs::disable("lastplay")
+    shinyjs::enable("currplay")
+    updateTextInput(session, "currplay", value = "")
+    shinyjs::disable("currplay")
+    playrandom(output, session)
     inplay()
   })
   
   observeEvent(input$skip, {
     waitplay()
     playmove(c(0,0), output)
-    playrandom(output)
+    shinyjs::enable("lastplay")
+    updateTextInput(session, "lastplay", value = "Skipped")
+    shinyjs::disable("lastplay")
+    playrandom(output, session)
     inplay()
   })
   
   observeEvent(input$quit, {
     waitplay()
-    resetinput(session)
+    initgame(input$mode, input$size, input$komi, output, session)
     quitplay(output)
     printscores(output)
     endplay()

@@ -30,12 +30,7 @@ initgame <- function(mode, size, komi, output, session){
     paste("Black's turn")
   })
   
-  output$on.b <- renderText({0})
-  output$on.w <- renderText({0})
-  output$terr.b <- renderText({0})
-  output$terr.w <- renderText({0})
-  output$cap.b <- renderText({0})
-  output$cap.w <- renderText({0})
+  resetscores(output)
   
   shinyjs::enable("lastplay")
   updateTextInput(session, "lastplay", value = "")
@@ -45,6 +40,19 @@ initgame <- function(mode, size, komi, output, session){
   shinyjs::disable("currplay")
   return(NULL)
 }
+
+#############################################################
+# resetscores: set scores to 0                              #
+#############################################################
+resetscores <-function(output){
+  output$on.b <- renderText({0})
+  output$on.w <- renderText({0})
+  output$terr.b <- renderText({0})
+  output$terr.w <- renderText({0})
+  output$cap.b <- renderText({0})
+  output$cap.w <- renderText({0})
+}
+
 
 #############################################################
 # playuser: play at clicked position if among valid moves   #

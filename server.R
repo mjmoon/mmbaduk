@@ -4,11 +4,11 @@
 # Shiny server                                              #
 # rsconnect::deployApp(".") to deploy                       #
 #############################################################
-source("mmbaduk.shiny.R")
-
 shinyServer(function(input, output, session) {
+  source("mmbaduk.shiny.R", local = TRUE)
   endplay()
   waitplay()
+  resetscores(output)
   shinyjs::disable("lastplay")
   shinyjs::disable("currplay")
   printinst(output)

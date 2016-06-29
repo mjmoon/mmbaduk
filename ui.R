@@ -5,7 +5,7 @@
 #                                                           #
 #############################################################
 shinyUI(fluidPage(
-  titlePanel("mmbaduk v1.0"),
+  titlePanel("mmbaduk v1.1"),
   fluidRow(
     column(4,
            selectInput("mode", "Select a game mode.", 
@@ -31,16 +31,11 @@ shinyUI(fluidPage(
   sidebarLayout(
     position = "right",
     sidebarPanel(
-       width = 4, align = "center",
+       align = "center",
        h5(textOutput("status")),
        fluidRow(
-         shinyjs::useShinyjs(),
-         column(6, 
-                h5(textInput("currplay", label = "Current"))
-                ),
-         column(6, 
-                h5(textInput("lastplay", label = "Previous")) 
-                )
+         column(6,h6(textInput("currplay", label = "Current"))),
+         column(6,h6(textInput("lastplay", label = "Previous")))
          ),
        shinyjs::useShinyjs(),
        actionButton("play", label = "Play stone", width = "100%"),
@@ -48,17 +43,11 @@ shinyUI(fluidPage(
        actionButton("skip", label = "Skip turn", width = "100%"),
        br(),br(),
        actionButton("quit", label = "Quit game", width = "100%")
-       )
-    ,
+       ),
      mainPanel(
        shinyjs::useShinyjs(),
-       plotOutput("game", 
-                  click = "clickpos" 
-                  , hover = hoverOpts(id = "hoverpos", 
-                                    delay = 300,
-                                    delayType = "throttle")
-                  ), 
        htmlOutput("inst"),
+       plotOutput("game", click = "clickpos"),
        fluidRow(column(6, strong("Black   "), br(),
                        textOutput("on.b", inline = TRUE), " on board   |   ",
                        textOutput("terr.b", inline = TRUE), " in territory   |   ",
@@ -68,7 +57,8 @@ shinyUI(fluidPage(
                        textOutput("on.w", inline = TRUE), " on board   |   ",
                        textOutput("terr.w", inline = TRUE), " in territory   |   ",
                        textOutput("cap.w", inline = TRUE), "captured", align = "center")
-                )
+                ),
+       br()
        )
      )
     )

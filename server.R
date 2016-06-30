@@ -54,8 +54,8 @@ shinyServer(function(input, output, session) {
   
   observeEvent(input$quit, {
     waitplay()
-    initgame(input$mode, input$size, input$komi, output, session)
     quitplay(output)
+    resetgame(output, session)
     printscores(output)
     endplay()
   })

@@ -185,7 +185,6 @@ endplay <- function(){
 # resetgame: reset game to NULL                             #
 #############################################################
 resetgame <- function(output, session){
-  mmbaduk$play <<- initboard(as.numeric(size))
   output$game <- renderPlot({
     plotgame(initboard(mmbaduk$size), mmbaduk$size, NULL, plotscrs = FALSE)
   })

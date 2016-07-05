@@ -25,19 +25,13 @@ initgame <- function(mode, size, komi, output, session){
   
   output$game <- renderPlot({
     plotgame(mmbaduk$play, mmbaduk$size, mmbaduk$i, plotscrs = FALSE)
-  })
+  }, height = session$clientData$output_game_width
+    )
   output$status <- renderText({
-    paste("Black's turn")
+    paste("Game started")
   })
   
   resetscores(output)
-  
-  shinyjs::enable("lastplay")
-  updateTextInput(session, "lastplay", value = "")
-  shinyjs::disable("lastplay")
-  shinyjs::enable("currplay")
-  updateTextInput(session, "currplay", value = "")
-  shinyjs::disable("currplay")
   return(NULL)
 }
 
@@ -80,9 +74,6 @@ playrandom <- function(output, session){
     if(nrow(vmoves) > 0){
       randi <- floor(runif(1,min = 1, max = nrow(vmoves)))
       on <- vmoves[randi,]
-      shinyjs::enable("lastplay")
-      updateTextInput(session, "lastplay", value = printpos(on))
-      shinyjs::disable("lastplay")
     }
     else on <- c(0,0)
     playmove(on, output)
@@ -101,12 +92,15 @@ playmove <- function(on, output){
     mmbaduk$play <<- playstone(stone, on, mmbaduk$play, mmbaduk$i, mmbaduk$size) 
     output$game <- renderPlot({
       plotgame(mmbaduk$play, mmbaduk$size, mmbaduk$i, plotscrs = FALSE)
-    })
+    }, height = session$clientData$output_game_width)
     printscores(output)
   }
   mmbaduk$i <<- mmbaduk$i + 1
   output$status <- renderText({
-    paste(ifelse(mmbaduk$i %% 2 == 1, "Black", "White"), "'s turn", sep = "")
+    if(all(on == 0))
+      paste(ifelse(mmbaduk$i %% 2 == 1, "White", "Black"), "skipped")
+    else
+      paste(ifelse(mmbaduk$i %% 2 == 1, "White played at", "Black played at"), printpos(on))
   })
   return(NULL)
 }
@@ -118,7 +112,7 @@ playmove <- function(on, output){
 quitplay <- function(output){
   output$game <- renderPlot({
     plotterr(mmbaduk$play, mmbaduk$size, plotscrs = FALSE)
-  })
+  }, height = session$clientData$output_game_width)
   
   output$status <- renderText({
     paste(ifelse(winner(mmbaduk$play, mmbaduk$komi) == 1,
@@ -142,7 +136,10 @@ validmoves <- function(){
 #############################################################
 # startplay: disable game selectors                         #
 #############################################################
-startplay <- function(){
+startplay <- function(output){
+  output$printinstui <- renderUI({
+    list(br(), actionButton('printinst', label = label(), width = "100%"))
+  })
   shinyjs::disable("start")
   shinyjs::disable("mode")
   shinyjs::disable("size")
@@ -177,25 +174,7 @@ endplay <- function(){
   shinyjs::enable("mode")
   shinyjs::enable("size")
   shinyjs::enable("komi")
-  shinyjs::hide("game")
-  shinyjs::show("inst")
-}
-
-#############################################################
-# resetgame: reset game to NULL                             #
-#############################################################
-resetgame <- function(output, session){
-  output$game <- renderPlot({
-    plotgame(initboard(mmbaduk$size), mmbaduk$size, NULL, plotscrs = FALSE)
-  })
-  
-  shinyjs::enable("lastplay")
-  updateTextInput(session, "lastplay", value = "")
-  shinyjs::disable("lastplay")
-  shinyjs::enable("currplay")
-  updateTextInput(session, "currplay", value = "")
-  shinyjs::disable("currplay")
-  return(NULL) 
+  shinyjs::disable("game")
 }
 
 #############################################################
@@ -219,7 +198,7 @@ printscores <- function(output){
 printinst <- function(output){
   output$inst <- renderUI({
     HTML("<hr/><div style='display: table; width: 100%'>
-<div style='float:left; display: table-cell; width: 50%; padding-right: 5px'>
+<div style='float:left; display: table-cell; width: 50%; padding-right: 5px; align: left'>
          <h4>How to start</h4>
          <b>Select a game mode.</b>
          <ol>
@@ -234,7 +213,7 @@ printinst <- function(output){
          <b>Start</b>
          <p>Click the button to start the selected game.</p>
          </div>
-         <div style='float:right; display: table-cell; width: 50%; padding-left: 5px'>
+         <div style='float:right; display: table-cell; width: 50%; padding-left: 5px; align: left'>
          <h4>How to play</h4>
          <b>Select a position.</b>
          <p>Click on a desired position on the board. The selected position will be highlighted.</p>
@@ -288,6 +267,6 @@ plotpos <- function(pos, output){
   output$game <- renderPlot({
     plotgame(mmbaduk$play, mmbaduk$size, mmbaduk$i, plotscrs = FALSE)
     points(pos[1], pos[2], col = NULL, bg = rgb(0,0,0, 0.3), pch = 21, cex = 2.5)
-  })
+  }, height = session$clientData$output_game_width)
   return(NULL)
 }

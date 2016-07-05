@@ -6,16 +6,15 @@
 #############################################################
 shinyServer(function(input, output, session) {
   source("mmbaduk.shiny.R", local = TRUE)
+  vars = reactiveValues(counter = 0)
+  output$status <- renderText({"Click start"})
   endplay()
   waitplay()
   resetscores(output)
-  shinyjs::disable("lastplay")
-  shinyjs::disable("currplay")
   printinst(output)
-  output$status <- renderText({"Click start"})
   
   observeEvent(input$start, {
-    startplay()
+    startplay(output)
     initgame(input$mode, input$size, input$komi, output, session)
     playrandom(output, session)
     inplay()
@@ -23,21 +22,12 @@ shinyServer(function(input, output, session) {
   
   observeEvent(input$clickpos, {
     mmbaduk$on <<- getxy(input$clickpos)
-    shinyjs::enable("currplay")
-    updateTextInput(session, "currplay", value = printpos(mmbaduk$on))
-    shinyjs::disable("currplay")
     plotpos(mmbaduk$on, output)
   })
   
   observeEvent(input$play, {
     waitplay()
     playuser(mmbaduk$on, output)
-    shinyjs::enable("lastplay")
-    updateTextInput(session, "lastplay", value = input$currplay)
-    shinyjs::disable("lastplay")
-    shinyjs::enable("currplay")
-    updateTextInput(session, "currplay", value = "")
-    shinyjs::disable("currplay")
     playrandom(output, session)
     inplay()
   })
@@ -45,17 +35,38 @@ shinyServer(function(input, output, session) {
   observeEvent(input$skip, {
     waitplay()
     playmove(c(0,0), output)
-    shinyjs::enable("lastplay")
-    updateTextInput(session, "lastplay", value = "Skipped")
-    shinyjs::disable("lastplay")
     playrandom(output, session)
     inplay()
+  })
+  
+  observeEvent(input$printinst, {
+    isolate({
+      vars$counter <- vars$counter + 1
+    })
+    if(vars$counter%%2 == 1){
+      shinyjs::hide("game")
+      shinyjs::show("inst")  
+    } else {
+      shinyjs::hide("inst")
+      shinyjs::show("game")  
+    }
+  })
+  
+  label <- reactive({
+    if(is.null(input$printinst))
+      return("Show instruction")
+    else{
+      if(vars$counter%%2 == 1){
+        return("Show board")
+      } else {
+        return("Show instruction")
+      }  
+    }
   })
   
   observeEvent(input$quit, {
     waitplay()
     quitplay(output)
-    resetgame(output, session)
     printscores(output)
     endplay()
   })

@@ -5,7 +5,7 @@
 #                                                           #
 #############################################################
 shinyUI(fluidPage(
-  titlePanel("mmbaduk v1.1"),
+  titlePanel("mmbaduk v1.3"),
   fluidRow(
     column(4,
            selectInput("mode", "Select a game mode.", 
@@ -33,21 +33,19 @@ shinyUI(fluidPage(
     sidebarPanel(
        align = "center",
        h5(textOutput("status")),
-       fluidRow(
-         column(6,h6(textInput("currplay", label = "Current"))),
-         column(6,h6(textInput("lastplay", label = "Previous")))
-         ),
        shinyjs::useShinyjs(),
        actionButton("play", label = "Play stone", width = "100%"),
        br(),br(),
        actionButton("skip", label = "Skip turn", width = "100%"),
        br(),br(),
-       actionButton("quit", label = "Quit game", width = "100%")
+       actionButton("quit", label = "Quit game", width = "100%"),
+       uiOutput("printinstui")
        ),
      mainPanel(
+       align = "center",
        shinyjs::useShinyjs(),
-       htmlOutput("inst"),
-       plotOutput("game", click = "clickpos"),
+       htmlOutput("inst", align = "left", width = "100%"),
+       plotOutput("game", click = "clickpos", height = "auto"),
        fluidRow(column(6, strong("Black   "), br(),
                        textOutput("on.b", inline = TRUE), " on board   |   ",
                        textOutput("terr.b", inline = TRUE), " in territory   |   ",

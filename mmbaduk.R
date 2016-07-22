@@ -11,36 +11,33 @@
 #                                                           #
 #  board:  a data frame with board state                    #
 #          including an 4-way graph                         #
-#  region: a matrix representing connected regions          #
+#  chain: a matrix representing connected chains            #
 #          for each position                                #
 #  scores: a vector tracking capture, on-board, and         #
 #         territory counts                                  #
 #############################################################
 initboard <- function(size, loadgame = NULL){
-  ## ggplot2 version ##
-  #   library(ggplot2)
-  #   library(gridExtra)
-  #   library(grid)
-  
   if(!is.null(loadgame)){
     return(loadgame)
   }
   
-  board <- data.frame(l = rep(0, size*size), u = rep(0, size*size),
-                      r = rep(0, size*size), d = rep(0, size*size),
-                      x = rep(c(1:size), each = size), y = rep(c(1:size), size),
-                      on = factor(rep(0, size*size), levels = c(0,1,2)),
-                      playnum = rep(0, size*size),
-                      terr = rep(0, size*size),
-                      allowed.black = rep(TRUE, size*size),
-                      allowed.white = rep(TRUE, size*size),
-                      eye.black = rep(FALSE, size*size),
-                      eye.white = rep(FALSE, size*size),
-                      kocount = rep(0, size*size))
+  board <- data.frame(l = rep(0, size*size), #1: index for a position to the left
+                      u = rep(0, size*size), #2: index for a position up
+                      r = rep(0, size*size), #3: index for a position to the right
+                      d = rep(0, size*size), #4: index for a position down
+                      x = rep(c(1:size), each = size), #5: x coordinate
+                      y = rep(c(1:size), size),        #6: y coordinate
+                      on = factor(rep(0, size*size), levels = c(0,1,2)), #7: stone colour
+                      playnum = rep(0, size*size),          #8: last play number
+                      terr = rep(0, size*size),             #9: territory
+                      eye.black = rep(FALSE, size*size),    #10: is black's eye
+                      eye.white = rep(FALSE, size*size),    #11: is white's eye
+                      kocount = rep(0, size*size)           #12: ko count
+                      )          
   
-  board[,c(1:4)] <- edges(rep(0,size*size), c(1:(size*size)), board, size)
+  board[, 1:4] <- edges(rep(0, (size*size)), 1:(size*size), board, size)
   
-  region <- matrix(rep(c(1:(size*size)), size*size), nrow = size*size,
+  chain <- matrix(rep(c(1:(size*size)), size*size), nrow = size*size,
                    byrow = TRUE)
   
   scores <- data.frame(cap.black = 0, cap.white = 0, 
@@ -48,85 +45,42 @@ initboard <- function(size, loadgame = NULL){
                        on.black = 0, on.white = 0, 
                        winner = 0)
   
-  return(list(board = board, region = region, scores = scores))
+  return(list(board = board, chain = chain, scores = scores))
 }
 
 #############################################################
-# edge: update the edge with the index of a stone's given   #
-#       side if connected, else 0                           #
-#   dep: getneibours                                        #
+# findindex: return the index matching the given (x,y)      #
+#            coordinates                                    #
 #############################################################
-edge <- function(stone = NULL, ind = NULL, side = NULL, board = NULL, n = NULL){
-  edge <- 0
-  nbrs <- getneibours(ind, n)
-  nbr <- nbrs[side]
-  if(nbr!=0) if(board$on[nbr] == stone)
-     edge <- nbr
-  return(edge)
+findindex <- function(on,n){
+  return((on[1]-1)*n + on[2])
 }
 
 #############################################################
-# edges: update the edge with the index of a stone's four   #
-#        sides if connected, else 0                         #
-#   dep: edge                                               #
+# findon: return the (x,y) coordinates matching the given   #
+#         index                                             #
 #############################################################
-edges <- function(stone = NULL, ind = NULL, board = NULL, n = NULL){
-  edges <- NULL
-  sides <- c(1:4)
-  if (length(stone) == 1) {
-    for(i in sides)
-      edges <- c(edges, edge(stone, ind, i, board, n))
-  } else {
-    for(j in 1:length(stone)){
-      for(i in sides)
-        edges <- c(edges, edge(stone[j], ind[j], i, board, n))
-    }
-    edges <- matrix(edges, nrow = length(stone), ncol = length(sides), byrow = TRUE)
-  }
-  return(edges)  
+findon <- function(ind, n){
+  return(c(ceiling(ind/n), (ind-1) %% n + 1))
 }
 
 #############################################################
-# region: update the region of the game                     #
-#   dep: getedges                                           #
+# winner: return the winner of the game based on current    #
+#         board's territory + onboard + komi counts         #
 #############################################################
-region <- function(stone = NULL, play = NULL, ind = NULL, n = NULL){
-  conns <- getedges(play[[1]], ind)
-  region <- NULL
-  while(length(conns) != 0){
-    region <- c(region, conns)
-    temp <- NULL
-    for(i in conns){
-      temp <- c(temp, getedges(play[[1]],i))
-    }
-    conns <- unique(temp)
-    conns <- conns[conns!=0 & !conns %in% region]
-  }
-  region <- unique(c(region, ind))
-  region <- c(region, rep(0, n*n - length(region)))
-  play[[2]][ind,] <- region
-  
-  for(i in region[region!=0]) play[[2]][i,] <- region
-  
-  return(play[[2]])
+winner <- function(play = NULL, komi = NULL){
+  winner <- ifelse((play$scores$terr.black + play$scores$on.black) 
+                   > (play$scores$terr.white + play$scores$on.white + komi),
+                   1, 2)
+  return(winner)
 }
 
 #############################################################
-# getedges: return the indeces of a stone's edges           #
-#   dep: edges                                              #
-#############################################################
-getedges <- function(board = NULL, ind = NULL){
-  edges <- board[ind, c(1:4)]
-  edges <- edges[edges != 0]
-  return(edges)
-}
-
-#############################################################
-# getneibours: return the ordered indeces of a stone's      #
+# getnbrs: return the ordered indeces of a stone's          #
 #              four sides - l, u, r, d                      #
 #   dep: findon                                             #
 #############################################################
-getneibours <- function(ind = NULL, n = NULL){
+getnbrs <- function(ind = NULL, n = NULL, rm.0 = TRUE){
   nbrs <- rep(0,4)
   on <- findon(ind, n)
   
@@ -134,15 +88,17 @@ getneibours <- function(ind = NULL, n = NULL){
   if(on[2] < n) nbrs[2] <- ind + 1
   if(on[1] < n) nbrs[3] <- ind + n
   if(on[2] > 1) nbrs[4] <- ind - 1
-  return(nbrs)
+  
+  if(rm.0) return(nbrs[nbrs != 0])
+  else return(nbrs)
 }
 
 #############################################################
-# getneibours8: return the unordered indeces of a stone's   #
+# getnbrs8: return the unordered indeces of a stone's       #
 #               eight sides - four sides plus diagonals     #
 #   dep: findon                                             #
 #############################################################
-getneibours8 <- function(ind = NULL, n = NULL){
+getnbrs8 <- function(ind = NULL, n = NULL){
   nbrs8 <- NULL
   on <- findon(ind, n)
   
@@ -163,118 +119,103 @@ getneibours8 <- function(ind = NULL, n = NULL){
 }
 
 #############################################################
-# getregion: return the indeces of a stone's region         #
+# edge: update the edge with the index of a stone's given   #
+#       side if connected, else 0                           #
+#   dep: getnbrs                                            #
 #############################################################
-getregion <- function(region, ind){
-  reg <- region[ind,]
-  reg <- reg[reg != 0]
-  return(reg)
+edge <- function(stone = NULL, ind = NULL, side = NULL, board = NULL, n = NULL){
+  edge <- 0
+  nbrs <- getnbrs(ind, n, FALSE)
+  nbr <- nbrs[side]
+  if(nbr!=0) if(board$on[nbr] == stone)
+     edge <- nbr
+  return(edge)
 }
 
 #############################################################
-# getneibours.reg: return the indeces of the region of      #
-#                  a stone's four sides                     #
-#   dep: getregion; getneibours                             #
+# edges: update the edge with the index of a stone's four   #
+#        sides if connected, else 0                         #
+#   dep: edge                                               #
 #############################################################
-getneibours.reg <- function(ind = NULL, play = NULL, n = NULL){
-  nbrs.reg <- NULL
-  reg <- getregion(play[[2]], ind)
-  for(i in reg){
-    nbrs.reg <- c(nbrs.reg, getneibours(i, n))
-  }
-  nbrs.reg <- unique(nbrs.reg)
-  nbrs.reg <- nbrs.reg[nbrs.reg != 0 & !nbrs.reg %in% reg]
-  return(nbrs.reg)
+edges <- function(stone = NULL, ind = NULL, board = NULL, n = NULL){
+  if(length(ind) > 1)
+    return(t(mapply(edges, stone = stone, ind = ind, 
+             MoreArgs = list(board = board, n = n))))
+  else
+    return(sapply(c(1:4), edge, stone = stone, ind = ind, board = board, n = n))
 }
 
 #############################################################
-# addstone: add a stone on the game board                   #
-#   dep: findindex; edges; region; capturestone; checkeye;  #
-#        getneibours8; getneibours; getneibours.reg;        #
-#        updateterr; updateallow;                           #
+# getedges: return the indeces of a stone's edges           #
 #############################################################
-addstone <- function(stone = NULL, on = NULL, play = NULL, i = 0, n = NULL){
-  ind <- findindex(on,n)
-  play$board$on[ind] <- stone
-  play$board$playnum[ind] <- i
-  play$board$kocount <- sapply(play[[1]]$ko, function(x) max(0, x-1))
-  
-  # update edges
-  play$board[ind,c(1:4)] <- edges(stone, ind, play[[1]], n)
-  
-  # update connected neibours
-  nbrs <- getneibours(ind, n)
-  nbrs <- nbrs[nbrs!=0]
-  for(j in nbrs){
-    play$board[j,c(1:4)] <- edges(play$board$on[j], j, play$board, n)
-  }
-  
-  # update regions
-  play$region <- region(stone, play, ind, n)
-  
-  # update disconnected regions
-  nedges <- nbrs[!nbrs %in% getedges(play$board, ind)]
-  for(e in nedges){
-    play$region <- region(play$board$on[e], play, e, n)
-  }
-  
-  # capture 
-  for(j in nedges){
-    play <- capturestone(stone, j, play, n)
-  }
-  
-  # get neibours of the region
-  nbrs.reg <- getneibours.reg(ind, play, n)
-  
-  # check restrictions
-  if(sum(play$board$on[nbrs.reg] == 0) == 0){
-    stop(paste(paste("Move not allowed at ", on[1]), on[2]))    
-  }
-  
-  if(play$board$kocount[ind] > 1){
-    stop(paste(paste("Move not allowed at ", on[1]), on[2]))
-  }
-  
-  # update territory
-  play$board$terr[ind] <- 0
-  for(t in nedges){
-    play <- updateterr(stone, t, play, n)
-  }
-  
-  # update allowance
-  play$board[ind, 10:11] <- FALSE
-  for(u in nbrs.reg){
-    play <- updateallow(stone, u, play, n)
-  }
-  
-  # update eyes
-  nbrs8 <- getneibours8(ind, n)
-  for(k in nbrs8){
-    play$board[k, 11 + stone] <- checkeye(stone, k, play[[1]], n)
-  }
-  play$board[ind, 12:13] <- FALSE
-  
-  # update scores
-  play$scores$terr.black <- sum(play[[1]]$terr == 1)
-  play$scores$terr.white <- sum(play[[1]]$terr == 2)
-  play$scores$on.black <- sum(play[[1]]$on == 1)
-  play$scores$on.white <- sum(play[[1]]$on == 2)
-  
-  return(play)
+getedges <- function(board = NULL, ind = NULL){
+  edges <- board[ind, c(1:4)]
+  edges <- edges[edges != 0]
+  return(edges)
 }
 
 #############################################################
-# checkatari: return true if the given index is in atari    #
-#             - its region is surrounded by the opponent    #
-#   dep: getneibours.reg                                    #
+# getchain: return the indeces of a stone's chain           #
 #############################################################
-checkatari <- function(stone = NULL, ind = NULL, play = NULL, n = NULL){
-  atari <- FALSE
-  if(play$board$on[ind] != 0 & 
-     all(play$board$on[getneibours.reg(ind, play, n)] == stone)){
-    atari <- TRUE
+getchain <- function(ind, chain){
+  if(length(ind) > 1)
+    return(sapply(ind, getchain, chain = chain))
+  else{
+    chn <- chain[ind,]
+    chn <- unique(chn[chn != 0])
+    return(chn)
   }
-  return(atari)
+}
+
+#############################################################
+# getnbrs.chain: return the indeces of the chain's neibour  #
+#   dep: getchain; getnbrs                                  #
+#############################################################
+getnbrs.chain <- function(ind = NULL, chain = NULL, n = NULL){
+  if(length(ind) > 1){
+    return(sapply(ind, getnbrs.chain, chain, n))
+  } else {
+    chn <- getchain(ind, chain)
+    nbrs.chn <- unlist(sapply(chn, getnbrs, n))
+    nbrs.chn <- unique(nbrs.chn[nbrs.chn != 0 & !nbrs.chn %in% chn])
+    return(nbrs.chn)
+  }
+}
+
+#############################################################
+# getliberty: returns the number of liberties; number of    #
+#               empty adjascent points (max 8)              #
+#   dep: getnbrs.chain;                                     #
+#############################################################
+getliberty <- function(ind = NULL, play = NULL, n = NULL){
+  if(length(ind) > 1){
+    return(sapply(ind, getliberty, play = play, n = n))
+  } else {
+    return(sum(play$board$on[getnbrs.chain(ind, play$chain, n)] == 0))
+  }
+}
+
+#############################################################
+# chain: update the chain of the game                       #
+#   dep: getedges;                                          #
+#############################################################
+updatechain <- function(stone = NULL, ind = NULL, play = NULL, n = NULL){
+  while(length(ind) > 0){
+    conns <- getedges(play$board, ind[1])
+    chain <- NULL
+    while(length(conns) > 0){
+      chain <- c(chain, conns)
+      conns <- 
+          unlist(
+            sapply(conns, getedges, board = play$board)
+          )
+      conns <- unique(conns[!conns %in% chain])
+    }
+    chain <- unique(c(ind[1], chain))
+    play$chain[chain, ] <- rep(c(chain, rep(0, n*n - length(chain))), each = length(chain))
+    ind <- ind[!ind %in% chain]
+  }
+  return(play$chain)
 }
 
 #############################################################
@@ -282,164 +223,94 @@ checkatari <- function(stone = NULL, ind = NULL, play = NULL, n = NULL){
 #           - it's empty surrounded by a single colour      #
 #           i.e., > 7 of the eight neighbours in the middle #
 #                 or all on the sides/corners               #
-#   dep: getneibours; getneibours8                          #
+#   dep: getnbrs; getnbrs8;                                 #
 #############################################################
 checkeye <- function(stone = NULL, ind = NULL, board = NULL, n = NULL){
-  eye <- FALSE
-  nbrs <- getneibours(ind, n)
-  nbrs <- nbrs[nbrs != 0]
-  if(board$on[ind] == 0 & all(board$on[nbrs] == stone)){
-    nbrs8 <- getneibours8(ind, n) 
-    nbrs8 <- nbrs8[!nbrs8 %in% nbrs]
-    if(all(board$on[nbrs8] == stone) | 
-      sum(board$on[nbrs8] == stone) == 3){
-      eye <- TRUE
+  if(length(ind) > 1){
+    return(sapply(ind, checkeye, stone = stone, board = board, n = n))
+  } else {
+    eye <- FALSE
+    nbrs <- getnbrs(ind, n)
+    if(board$on[ind] == 0 & all(board$on[nbrs] == stone)){
+      nbrs8 <- getnbrs8(ind, n) 
+      nbrs8 <- nbrs8[!nbrs8 %in% nbrs]
+      if(all(board$on[nbrs8] == stone) | 
+         sum(board$on[nbrs8] == stone) == 3){
+        eye <- TRUE
+      }
     }
+    return(eye)
   }
-    
-  return(eye)
 }
 
 #############################################################
 # capturestone: update the game by removing captured stones #
-#   dep: checkatari; getregion; getneibours.reg;            #                                    #
-#        updateallow                                        #
+#   dep: getliberty; getchain;                              #
 #############################################################
-capturestone <- function(stone = NULL, ind = NULL, play = NULL, n = NULL){
-  if(checkatari(stone, ind, play, n)){
-    reg <- getregion(play$region, ind)
-    play$scores[stone] <- play$scores[stone] + length(reg)
-    play$board$on[reg] <- 0
-    if(length(reg) == 1){
-      play$board$kocount[reg] <- 2
-    }
-    
-    play$board[reg, 10:11] <- TRUE
-    reg.nbr <- getneibours.reg(ind, play, n)
-    for (i in reg.nbr){
-      play <- updateallow(stone, i, play, n)
-    }
+capturestone <- function(stone = NULL, ind = NULL, ind.p = NULL, play = NULL, n = NULL){
+  for(i in ind){
+    if(play$board$on[i] != 0 & getliberty(i, play, n) == 0){
+      chn <- getchain(i, play$chain)
+      play$scores[stone] <- play$scores[stone] + length(chn)
+      play$board$on[chn] <- 0
+      if(length(chn) == 1 & 
+         length(getchain(ind.p, play$chain)) == 1){
+        play$board$kocount[chn] <- 2
+        }
+      }
   }
   return(play)
 }
 
 #############################################################
-# updateallow: update the list of game's allowed moves      #
-#   dep: edges; region; checkatari;                         #
-#        getneibours; getneibours.reg                       #
-#############################################################
-updateallow <- function(stone = NULL, ind = NULL, play = NULL, n = NULL){
-  play_ <- play
-  if(play$board$on[ind] == 0){
-    allow <- play$board[ind, 10:11]
-    play$board$on[ind] <- stone%%2 +1 
-    play$board[ind, 1:4] <- edges(stone%%2 + 1, ind, play$board, n)
-    play$region <- region(stone%%2 + 1, play, ind, n)
-    
-    if(checkatari(stone, ind, play, n)){
-      nbrs <- getneibours(ind, n)
-      nbrs <- nbrs[nbrs != 0]
-      atari <- NULL
-      for(i in nbrs){
-        atari <- c(atari, checkatari(stone%%2 + 1, i, play, n))
-      }
-      if(all(!atari)){
-        allow[3 - stone] <- FALSE
-        allow[stone] <- TRUE
-      }
-      else if(all(atari)){
-        allow[3 - stone] <- TRUE
-        allow[stone] <- FALSE
-      }
-      else {
-        allow[3 - stone] <- TRUE
-      }
-    }
-    else {
-      allow[3 - stone] <- TRUE
-      play$board$on[ind] <- stone
-      play$board[ind, 1:4] <- edges(stone, ind, play$board, n)
-      play$region <- region(stone, play, ind, n)
-      if(checkatari(stone%%2 + 1, ind, play, n))
-        allow[stone] <- FALSE
-    }
-    play_$board[ind, 10:11] <- allow  
-  } else {
-    nbrs.reg <- getneibours.reg(ind, play_, n)
-    nbrs.reg <- nbrs.reg[play$board$on[nbrs.reg] == 0]
-    for(u in nbrs.reg){
-      play_ <- updateallow(stone%%2 + 1, u, play_, n)
-    }
-  }
-  return(play_)
-}
-
-#############################################################
-# updateallow: update the board's territory                 #
-#   dep: getregion; getneibours.reg                         #
+# updateterr: update the board's territory                  #
+#   dep: getchain; getnbrs.chain;                           #
 #############################################################
 updateterr <- function(stone = NULL, ind = NULL, play = NULL, n = NULL){
-  if(play$board$on[ind] == 0)
-    if(all(play$board$on[getneibours.reg(ind, play, n)] == stone)){
-    play$board$terr[getregion(play$region, ind)] <- stone
-    } else play$board$terr[getregion(play$region, ind)] <- 0
+  while(length(ind) > 0){
+    chain <- getchain(ind[1], play$chain)
+    if(play$board$on[ind[1]] == 0 & 
+       all(play$board$on[getnbrs.chain(ind[1], play$chain, n)] == stone)) {
+      play$board$terr[chain] <- stone
+    } else {
+      play$board$terr[chain] <- 0
+    }
+    ind <- ind[!ind %in% chain]
+  }
   return(play)
 }
 
 #############################################################
-# isvalid: return true if the move is valid                 #
-#          i.e., currently empty and within bounds          #
-#   dep: findindex                                          #
+# checklegal: check if a move is legal                      #
+#   dep: getnbrs; getliberty;                               #
 #############################################################
-isvalid <- function(stone = NULL, on = NULL, board = NULL, n = NULL){
-  ind <- findindex(on, n)
-  valid <- NULL
-  valid <- c(board$on[ind] == 0, on >= 1, on <= n) 
-  # emmpty + not out of bounds
-  return(all(valid))
-}
-
-#############################################################
-# findindex: return the index matching the given (x,y)      #
-#            coordinates                                    #
-#############################################################
-findindex <- function(on,n){
-  return((on[1]-1)*n + on[2])
-}
-
-#############################################################
-# findon: return the (x,y) coordinates matching the given   #
-#         index                                             #
-#############################################################
-findon <- function(ind, n){
-  return(c(ceiling(ind/n), (ind-1) %% n + 1))
-}
-
-#############################################################
-# playstone: add stone if the given move is valid           #
-#   dep: isvalid; addstone                                  #
-#############################################################
-playstone <- function(stone = NULL, on = NULL, play = NULL, i = 0, n = NULL){
-  if(isvalid(stone, on, play$board, n)){
-    # add stone
-    play <- addstone(stone, on, play, i, n)
-    return(play)
+checklegal <- function(stone = NULL, ind = NULL, play = NULL, n = NULL, kocheck = 2){
+  if(length(ind) > 1) {
+    return(sapply(ind, checklegal, stone = stone, play = play, n = n))
   }
-  else{
-    stop("Invalid position")
+  else {
+    if(play$board$on[ind] != 0) return(FALSE)
+    if(play$board$kocount[ind] == kocheck) return(FALSE)
+    
+    nbrs <- getnbrs(ind, n)
+    
+    # any empty neighbour ? #
+    emptynbrs <- sum(play$board$on[nbrs] == 0) > 0
+    
+    # any same-colour neighour with liberty > 1 ? #
+    libsame <- any(sapply(nbrs, 
+                          function(x) ifelse(play$board$on[x] == stone, 
+                                             getliberty(x, play, n), 0)
+    ) > 1)
+    
+    # any opposite-colour neighbour with liberty == 1 ? #
+    liboppo <- any(sapply(nbrs, 
+                          function(x) ifelse(play$board$on[x] == stone%%2 + 1, 
+                                             getliberty(x, play, n), 0)
+    ) == 1)
+    
+    return(ifelse(any(emptynbrs, libsame, liboppo), TRUE, FALSE)) 
   }
-}
-
-#############################################################
-# winner: return the winner of the game based on current    #
-#         board's territory + onboard + komi counts         #
-#############################################################
-winner <- function(play = NULL, komi = NULL){
-  winner <- ifelse((play$scores$terr.black + sum(play[[1]]$on == 1)) 
-                   > (play$scores$terr.white + sum(play[[1]]$on == 2) 
-                      + komi),
-                   1, 2)
-  return(winner)
 }
 
 #############################################################
@@ -452,7 +323,6 @@ plotboard <- function(n = NULL){
   plot(refpts, xlim = c(1,n), ylim = c(1,n), 
        xlab = "", ylab = "", axes = FALSE, pch = 16,
        col = grey(0.5), mar = 0)
-  # title(main = "mmbaduk v0.1", line = 3)
   abline(h = c(1:n), v = c(1:n), lty = "dotted", col = grey(0.5))
   axis(3, tick = FALSE, at = c(1:n), labels = LETTERS[1:n])
   axis(2, tick = FALSE, at = c(1:n), labels = c(1:n), las = 2)
@@ -479,7 +349,7 @@ plotscores <- function(scores = NULL, n = NULL){
 
 #############################################################
 # plotgame: plot the game state                             #
-#  dep:plotboard; plotscores                                #
+#  dep:plotboard; plotscores;                               #
 #############################################################
 plotgame <- function(play = NULL, n = NULL, i = NULL,
                      plotscrs = TRUE){
@@ -503,7 +373,7 @@ plotgame <- function(play = NULL, n = NULL, i = NULL,
 
 #############################################################
 # plotterr: plot the game state with territories            #
-#  dep:plotboard; plotscores                                #
+#  dep:plotboard; plotscores;                               #
 #############################################################
 plotterr <- function(play = NULL, n = NULL, plotscrs = TRUE){
   blacks <- subset(play$board, on == 1)
@@ -537,7 +407,7 @@ plotterr <- function(play = NULL, n = NULL, plotscrs = TRUE){
 #############################################################
 # plottest: plot the game state with territories,           #
 #           eyes, and moves not allowed                     #
-#  dep:plotboard; plotscores                                #
+#  dep:plotboard; plotscores;                               #
 #############################################################
 plottest <- function(play = NULL, n = NULL, i = NULL){
   blacks <- subset(play$board, on == 1)
@@ -573,115 +443,57 @@ plottest <- function(play = NULL, n = NULL, i = NULL){
   plotscores(play$scores)
 }
 
-########################## ggplot2 version ##########################
-# plotboard <- function(n = NULL){
-#   refpos <- c(ceiling((n+1)/4-1),(n+1)/2,floor((n+1)*3/4+1))
-#   refpts <- data.frame(x = rep(refpos,3), y = rep(refpos,each=3))
-#   
-#   board <- ggplot(data = refpts, aes(x = x, y = y)) + 
-#     labs(x = "", y = "", title = "") +
-#     geom_hline(yintercept = c(1:n), color = "dark grey") +
-#     geom_vline(xintercept = c(1:n), color = "dark grey") +
-#     geom_point(size = 2, alpha = 0.8)
-#   
-#     return(board)
-# }
-# 
-# plotgame <- function(play = NULL, n = NULL, board = NULL, i = NULL){
-#   game <- board +
-#     geom_point(data = subset(play[[1]], on ==1), aes(x = x, y = y), 
-#                color = "black", size = 8) +
-#     geom_point(data = subset(play[[1]], on ==2), aes(x = x, y = y), 
-#                shape = 21, fill = "white", size = 8) +
-#     geom_text(data = subset(play[[1]], playnum == i), 
-#               aes(x = x, y = y, label = playnum), 
-#               color = "red", fontface = "bold")
-#   
-#   scores <- plotscores(play, n)
-#   
-#   boardplt <- grid.arrange(scores[[1]], game, scores[[2]],
-#                            ncol=1, nrow=3, layout_matrix = rbind(1,2,3), 
-#                            heights = c(2, 8, 2))
-#   return(boardplt)
-# }
-# 
-# plotscores <- function(play = NULL, n = NULL){
-#   stonesize <- 4
-#   maxscale <- n*n/2
-#   scrplt.black <- ggplot(data = play[[3]]) + theme_minimal() +
-#     theme(axis.text.x = element_blank()) +
-#     labs(x = "", y = "", title = "Black's Score") +
-#     geom_point(aes(x = paste("Captured:", cap.black), y = min(maxscale,cap.black)), 
-#                shape = 21, fill = "white", size = stonesize) +
-#     geom_point(aes(x = paste("Territory:", terr.black), y = min(maxscale,terr.black)), 
-#                alpha = 0.5, size = stonesize) +
-#     geom_point(aes(x = paste("On Board:", on.black), y = min(maxscale,on.black)), 
-#                size = stonesize) +
-#     coord_flip(ylim = c(0,maxscale))
-#   
-#   scrplt.white <- ggplot(data = play[[3]]) + theme_minimal() +
-#     theme(axis.text.x = element_blank()) +
-#     labs(x = "", y = "", title = "White's Score") +
-#     geom_point(aes(x = paste("Captured:", cap.white), y = min(maxscale,cap.white)), 
-#                size = stonesize) +
-#     geom_point(aes(x = paste("Territory:", terr.white), y = min(maxscale,terr.white)), 
-#                color = "grey", alpha = 0.5, size = stonesize) +
-#     geom_point(aes(x = paste("On Board:", on.white), y = min(maxscale,on.white)), 
-#                shape = 21, fill = "white", size = stonesize) +
-#     coord_flip(ylim = c(0,maxscale))
-#   
-#   return(list(scrplt.black, scrplt.white))
-# }
-# 
-# plotterr <- function(play = NULL, n = NULL, board = NULL){
-#   terr <- board +
-#     geom_point(data = subset(play[[1]], on ==1), aes(x = x, y = y), 
-#                color = "black", size = 8) +
-#     geom_point(data = subset(play[[1]], on ==2), aes(x = x, y = y), 
-#                shape = 21, fill = "white", size = 8) +
-#     geom_point(data = subset(play[[1]], terr ==1), aes(x = x, y = y), 
-#                color = "black", size = 8, alpha = 0.5) +
-#     geom_point(data = subset(play[[1]], terr ==2), aes(x = x, y = y), 
-#                color = "grey", size = 8, alpha = 0.5) +
-#     geom_text(data = subset(play[[1]], on == 1),
-#               aes(x = x, y = y, label = playnum), color = "white") +
-#     geom_text(data = subset(play[[1]], on == 2),
-#               aes(x = x, y = y, label = playnum), color = "black")
-#   
-#   scores <- plotscores(play, n)
-#   
-#   terrplot <- grid.arrange(scores[[1]], terr, scores[[2]],
-#                            ncol=1, nrow=3, layout_matrix = rbind(1,2,3), 
-#                            heights = c(2, 8, 2))
-#   return(terrplot)
-# }
-# 
-# plottest <- function(play = NULL, n = NULL, board = NULL, i = NULL){
-#   test <- board +
-#     geom_point(data = subset(play[[1]], terr ==1), aes(x = x, y = y), 
-#                color = "black", size = 8, alpha = 0.5) +
-#     geom_point(data = subset(play[[1]], terr ==2), aes(x = x, y = y), 
-#                color = "grey", size = 8, alpha = 0.5) +
-#     geom_point(data = subset(play[[1]], on ==1), aes(x = x, y = y), 
-#                color = "black", size = 8) +
-#     geom_point(data = subset(play[[1]], on ==2), aes(x = x, y = y), 
-#                shape = 21, fill = "white", size = 8) +
-#     geom_point(data = subset(play[[1]], allowed.black == FALSE), aes(x = x, y = y), 
-#                shape = 21, color = "red", size = 6) +
-#     geom_point(data = subset(play[[1]], allowed.white == FALSE), aes(x = x, y = y), 
-#                shape = 21, color = "green", size = 5) +
-#     geom_point(data = subset(play[[1]], eye.black == TRUE), aes(x = x, y = y), 
-#                shape = 4, color = "red", size = 5) +
-#     geom_point(data = subset(play[[1]], eye.white == TRUE), aes(x = x, y = y), 
-#                shape = 4, color = "green", size = 5) +
-#     geom_text(data = subset(play[[1]], playnum == i), 
-#               aes(x = x, y = y, label = playnum), 
-#               color = "red", fontface = "bold")
-#   
-#   scores <- plotscores(play, n)
-#   
-#   testplot <- grid.arrange(scores[[1]], test, scores[[2]],
-#                            ncol=1, nrow=3, layout_matrix = rbind(1,2,3), 
-#                            heights = c(2, 8, 2))
-#   return(testplot)
-# }
+#############################################################
+# playstone: add a stone on the game board                  #
+#   dep: findindex; checklegal; getnbrs; getnbrs8; edges;   #
+#        getedges; updatechain; capturestone; updateterr;   #
+#        checkeye;                                          #
+#############################################################
+playstone <- function(stone = NULL, on = NULL, play = NULL, i = 0, n = NULL){
+  ind <- findindex(on,n)
+  
+  if(!all(play$board$on[ind] == 0 , on >= 1, on <= n)){
+    stop("Invalid position")
+  }
+  
+  if(!checklegal(stone, ind, play, n)){
+    stop("Illegal move")
+  }
+  
+  play$board$on[ind] <- stone
+  play$board$playnum[ind] <- i
+  play$board$kocount <- sapply(play$board$ko, function(x) max(0, x-1))
+  
+  # neighbours
+  nbrs <- getnbrs(ind, n)      # four-way neighbours
+  nbrs8 <- getnbrs8(ind, n)    # eight-way neighbours
+  
+  # update edges
+  play$board[c(ind, nbrs),c(1:4)] <- 
+    edges(play$board$on[c(ind, nbrs)], c(ind, nbrs), play$board, n)
+  
+  # non-edges
+  nedges <- nbrs[!nbrs %in% getedges(play$board, ind)]  
+  
+  # update chains
+  play$chain <- updatechain(stone, c(ind, nbrs), play, n)
+  
+  # capture 
+  play <- capturestone(stone, nedges, ind, play, n)
+  
+  # update territory
+  play <- updateterr(stone, nedges, play, n)
+  
+  # update eyes
+  play$board[nbrs8, 9 + stone] <- checkeye(stone, nbrs8, play$board, n)
+  play$board$eye.black[ind] <- FALSE
+  play$board$eye.white[ind] <- FALSE
+  
+  # update scores
+  play$scores$terr.black <- sum(play$board$terr == 1)
+  play$scores$terr.white <- sum(play$board$terr == 2)
+  play$scores$on.black <- sum(play$board$on == 1)
+  play$scores$on.white <- sum(play$board$on == 2)
+  
+  return(play)
+}

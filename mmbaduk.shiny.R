@@ -21,7 +21,8 @@ initgame <- function(mode, size, komi, output, session){
                    size = as.numeric(size),
                    mode = as.numeric(mode), 
                    komi = as.numeric(komi),
-                   i = 1)
+                   i = 1,
+                   p = 0)
   
   output$game <- renderPlot({
     plotgame(mmbaduk$play, mmbaduk$size, mmbaduk$i, plotscrs = FALSE)
@@ -52,12 +53,10 @@ resetscores <-function(output){
 # playuser: play at clicked position if among valid moves   #
 #   dep: playmove; validmoves                               #
 #############################################################
-playuser <- function(pos, output){
-  if(any(apply(validmoves(), 1, 
-               function(x, want) isTRUE(all.equal(x, want)), 
-               pos))
-  ) {
-    playmove(pos, output)
+playuser <- function(pos, output, session){
+  if(checklegal((mmbaduk$i+1) %% 2 +1, findindex(pos, mmbaduk$size),  
+                mmbaduk$play, mmbaduk$size)) {
+    playmove(pos, output, session)
   }
   else output$status <- renderText({"Invalid move"})
   return(NULL)
@@ -70,13 +69,13 @@ playuser <- function(pos, output){
 playrandom <- function(output, session){
   if((mmbaduk$mode == 2 & mmbaduk$i %% 2 == 0) |
      (mmbaduk$mode == 3 & mmbaduk$i %% 2 == 1) ) {
-    vmoves <- validmoves()
-    if(nrow(vmoves) > 0){
-      randi <- floor(runif(1,min = 1, max = nrow(vmoves)))
-      on <- vmoves[randi,]
+    smoves <- sensiblemoves()
+    if(nrow(smoves) > 0){
+      randi <- floor(runif(1,min = 1, max = nrow(smoves)))
+      on <- smoves[randi,]
     }
     else on <- c(0,0)
-    playmove(on, output)
+    playmove(on, output, session)
   }
   return(NULL)
 }
@@ -86,22 +85,43 @@ playrandom <- function(output, session){
 #           pass if the given move is c(0,0)                #
 #   dep: playstone; plotgame                                #
 #############################################################
-playmove <- function(on, output){
+playmove <- function(on, output, session){
   stone <- (mmbaduk$i+1) %% 2 +1
   if(all(on > 0)){
-    mmbaduk$play <<- playstone(stone, on, mmbaduk$play, mmbaduk$i, mmbaduk$size) 
+    
+    invalidMoves <- tryCatch(
+      {
+        mmbaduk$play <<- playstone(stone, on, mmbaduk$play, mmbaduk$i, mmbaduk$size) 
+      },
+      error = function(e) e
+    )
+    
+    if(inherits(invalidMoves, "error")) {
+      playrandom(output, session)
+      output$status <- renderText(invalidMoves$message)
+      return(NULL)
+    }
+    
     output$game <- renderPlot({
       plotgame(mmbaduk$play, mmbaduk$size, mmbaduk$i, plotscrs = FALSE)
     }, height = session$clientData$output_game_width)
     printscores(output)
+    
+    output$status <- renderText({
+      paste(ifelse(stone == 1, "Black played at", "White played at"), printpos(on))
+    })
+    mmbaduk$p <<- 0
+    mmbaduk$i <<- mmbaduk$i + 1
+    return(NULL)
   }
-  mmbaduk$i <<- mmbaduk$i + 1
-  output$status <- renderText({
-    if(all(on == 0))
-      paste(ifelse(mmbaduk$i %% 2 == 1, "White", "Black"), "skipped")
-    else
-      paste(ifelse(mmbaduk$i %% 2 == 1, "White played at", "Black played at"), printpos(on))
-  })
+  if(all(on == 0)){
+    output$status <- renderText({
+      paste(ifelse(stone == 1, "Black", "White"), "passed")
+    })
+    mmbaduk$p <<- mmbaduk$p +1
+    mmbaduk$i <<- mmbaduk$i + 1
+    return(NULL)
+  }
   return(NULL)
 }
 
@@ -123,13 +143,15 @@ quitplay <- function(output){
 }
 
 #############################################################
-# validmoves: return a matrix of valid move coordinates     #
+# sensiblemoves: return a matrix of sensible move           #
+#                coordinates - legal and not its own eye    #
 #############################################################
-validmoves <- function(){
+sensiblemoves <- function(){
+  stone <- (mmbaduk$i+1) %% 2 +1
   board <- subset(mmbaduk$play$board, 
-                  mmbaduk$play$board[, (mmbaduk$i+1) %% 2 + 10]  
-                  & !mmbaduk$play$board[, (mmbaduk$i+1) %% 2 + 12]
-                  & mmbaduk$play$board$kocount != 2 )
+                  checklegal(stone, 1:(mmbaduk$size^2),  
+                             mmbaduk$play, mmbaduk$size)
+                  & !mmbaduk$play$board[, 9 + stone])
   return(cbind(board$x, board$y))
 }
 
@@ -210,19 +232,19 @@ printinst <- function(output){
          <p>Select among 5x5, 9x9, and 19x19 boards.</p>
          <b>Select a komi.</b>
          <p>Select the advantage points given to white.</p>
-         <b>Start</b>
+         <b>Start.</b>
          <p>Click the button to start the selected game.</p>
          </div>
          <div style='float:right; display: table-cell; width: 50%; padding-left: 5px; align: left'>
          <h4>How to play</h4>
          <b>Select a position.</b>
          <p>Click on a desired position on the board. The selected position will be highlighted.</p>
-         <b>Play stone.</b>
-         <p>Click the buttom to confirm the move.</p>
-         <b>Skip turn.</b>
-         <p>You may skip a turn.</p>
-         <b>Quit game.</b>
-         <p>Click the button to end the current game. You may start a new game once a game ends.</p>
+         <b>Play.</b>
+         <p>Click the buttom to place the stone</p>
+         <b>Pass.</b>
+         <p>You may pass a turn. Game will end when both players pass.</p>
+         <b>Resign.</b>
+         <p>Resign to quit current game.</p>
          </div>
          <div style='display: table; width: 100%'>
          <div style='float:left; display: table-cell; width: 50%; padding-right: 5px'>

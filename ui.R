@@ -5,7 +5,7 @@
 #                                                           #
 #############################################################
 shinyUI(fluidPage(
-  titlePanel("mmbaduk v1.3"),
+  titlePanel("mmbaduk v1.5"),
   fluidRow(
     column(4,
            selectInput("mode", "Select a game mode.", 
@@ -34,11 +34,11 @@ shinyUI(fluidPage(
        align = "center",
        h5(textOutput("status")),
        shinyjs::useShinyjs(),
-       actionButton("play", label = "Play stone", width = "100%"),
+       actionButton("play", label = "Play", width = "100%"),
        br(),br(),
-       actionButton("skip", label = "Skip turn", width = "100%"),
+       actionButton("skip", label = "Pass", width = "100%"),
        br(),br(),
-       actionButton("quit", label = "Quit game", width = "100%"),
+       actionButton("quit", label = "Resign", width = "100%"),
        uiOutput("printinstui")
        ),
      mainPanel(

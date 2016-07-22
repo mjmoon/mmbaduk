@@ -27,7 +27,7 @@ shinyServer(function(input, output, session) {
   
   observeEvent(input$play, {
     waitplay()
-    playuser(mmbaduk$on, output)
+    playuser(mmbaduk$on, output, session)
     playrandom(output, session)
     inplay()
   })
@@ -35,8 +35,21 @@ shinyServer(function(input, output, session) {
   observeEvent(input$skip, {
     waitplay()
     playmove(c(0,0), output)
-    playrandom(output, session)
-    inplay()
+    if(mmbaduk$p == 2) {
+      waitplay()
+      quitplay(output)
+      printscores(output)
+      endplay()
+    } else {
+      playrandom(output, session)
+      inplay()
+      if(mmbaduk$p == 2) {
+        waitplay()
+        quitplay(output)
+        printscores(output)
+        endplay()
+      }
+    }
   })
   
   observeEvent(input$printinst, {
@@ -67,6 +80,11 @@ shinyServer(function(input, output, session) {
   observeEvent(input$quit, {
     waitplay()
     quitplay(output)
+    output$status <- renderText({
+      paste(ifelse(mmbaduk$i %% 2 == 0,
+                   "Black", "White"), 
+            "Wins")
+    })
     printscores(output)
     endplay()
   })

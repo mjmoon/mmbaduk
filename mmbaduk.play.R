@@ -120,7 +120,7 @@ getplay <- function(mode, stone, play, n){
     cat("\n...")
     a <- readline("Press Return/Enter for next move.")
     if(a == "q" | a == "Q"){
-      cat("Ending simulation...") 
+      cat("Ending simulation...\n") 
       return(c(-1,-1))
     }
     return(getrandom(stone, play, n))
@@ -128,7 +128,7 @@ getplay <- function(mode, stone, play, n){
   
   x <- readline(prompt = "Enter position x:")
   if(x == "q" | x == "Q") {
-    cat("Game aborted")
+    cat("Game aborted\n")
     return(c(-1, -1))
   }
   else if(x == "b" | x == "B") {
@@ -168,7 +168,8 @@ getplay <- function(mode, stone, play, n){
 #   dep: initboard; getmode; getsize; getkomi; plotgame;    #
 #        getplay; plotterr; winner                          #
 #############################################################
-playmmbd <- function(sim = FALSE, size = 19, komi = 7.5){
+playmmbd <- function(load = NULL, size = 19, komi = 7.5, 
+                     sim = FALSE, ploton = TRUE, teston = FALSE){
   plays <- list()
   stone <- i <- 1
   p <- 0
@@ -180,13 +181,14 @@ playmmbd <- function(sim = FALSE, size = 19, komi = 7.5){
     size <- getsize()
     komi <- getkomi()
   }
-  plays[[1]] <- initboard(size)
+  plays[[1]] <- initboard(size, load)
   play <- plays[[1]]
-  plotgame(play, size, i)
+  
+  if(ploton) if(teston) plottest(play, size, i) else plotgame(play, size, i)
   while(TRUE){
     on <- getplay(mode, stone, plays[[i]], size)
     if(all(on == c(-1, -1))) {
-      plotterr(play, size)
+      if(teston) plottest(play, size, i) else plotterr(play, size)
       play$scores$winner <- winner(play, komi)
       cat(paste("End of game.", ifelse(play$scores$winner == 1, "Black wins.",
                                        "White wins.")))
@@ -194,7 +196,7 @@ playmmbd <- function(sim = FALSE, size = 19, komi = 7.5){
     }
     if(all(on == c(-1, 0))) {
       i <- max(i-1,1)
-      plotgame(plays[[i]], size, i)
+      if(ploton) if(teston) plottest(play, size, i) else plotgame(plays[[i]], size, i)
       next()
     }
     if(all(on == c(0, 0))) {
@@ -202,7 +204,7 @@ playmmbd <- function(sim = FALSE, size = 19, komi = 7.5){
       i = i+1
       p = p+1
       if(p == 2){
-        plotterr(play, size)
+        if(teston) plottest(play, size, i) else plotterr(play, size)
         play$scores$winner <- winner(play, komi)
         plays[[i]] <- play
         cat(paste("End of game.", ifelse(play$scores$winner == 1, "Black wins.",
@@ -224,7 +226,7 @@ playmmbd <- function(sim = FALSE, size = 19, komi = 7.5){
       next()
     }
     
-    plotgame(play, size, i)
+    if(ploton) if(teston) plottest(play, size, i) else plotgame(play, size, i)
     p = 0
     plays[[i+1]] <- play
     i = i+1
@@ -233,177 +235,45 @@ playmmbd <- function(sim = FALSE, size = 19, komi = 7.5){
   return(plays)
 }
 
-####### TODO: update #########
-
+### TODO: update ### 
 #############################################################
-# simmbd: simmulate mmbaduk and return a list               #
-#   dep: initboard; getplay; plotterr; winner               #
+# replaymmbd: replay games loaded from SGF files            #
+#          return a list of game state for each play        #
+#   dep: initboard; getmode; getsize; getkomi;              #
+#        plotgame; plotterr; getplay; winner                #
 #                                                           #
 #  play:      the game state at the end of game             #
 #  states:    a matrix representing the board at each play  #
 #             per row                                       #
-#  playlist:  a matrix representing play coordiantes        #
+#  sgfgame:   loaded sgf game                               #
 #############################################################
-# simmmbd <- function(size = NULL, komi = 7.5, loadgame = NULL){
-#   plays <- list()
-#   i <- 1
-#   mode <- 6
-#   plays[[1]] <- initboard(size, loadgame[[1]])
-#   plotgame(plays[[1]], size, i)
-#   output.plays <- NULL
-#   output.states <- rbind(NULL, plays[[1]]$board$on)
-#   
-#   if(!is.null(loadgame))
-#     if(loadgame[[3]][nrow(loadgame[[3]]),1] == 1){
-#       on <- c(0,0)
-#       plays[[i+1]] <- plays[[1]]
-#       i = i+1
-#       output.states <- rbind(NULL, plays[[1]]$board$on)
-#       output.plays <- c(player = i, x = on[1], y = on[2])
-#     }
-#   
-#   play <- plays[[i]]
-#   
-#   while(TRUE){
-#     if(checkend(play$board, i)){
-#       plotterr(play, size)
-#       play$scores$winner <- winner(plays[[i]], komi)
-#       cat(paste("End of game.", ifelse(play$scores$winner==1, "Black wins.",
-#                                        "White wins.")))
-#       break()
-#     }
-#     on <- getplay(mode, i, plays[[i]]$board)
-#     if(all(on == c(0, 0)) | all(!play$board[, 10 + (i+1) %% 2])) {
-#       plays[[i+1]] <- play
-#       i <- i+1
-#       next()
-#     }
-#     
-#     invalidMoves <- tryCatch(
-#       {
-#         play <- playstone((i+1) %% 2 +1, on, plays[[i]], i, size)
-#       },
-#       error = function(e) e
-#     )
-#     
-#     if(inherits(invalidMoves, "error")) {
-#       print(invalidMoves$message)
-#       next()
-#     }
-#     
-#     plays[[i+1]] <- play
-#     i = i+1
-#     output.plays <- rbind(output.plays, 
-#                           c(player = i %% 2 +1, x = on[1], y = on[2]))
-#     output.states <- rbind(output.states, play$board$on)
-#   }
-#   return(list(play = play, states = output.states, playlist = output.plays))
-# }
-# 
-# #############################################################
-# # testmbd: test playing mmbaduk and                         #
-# #          return a list of game state for each play        #
-# #   dep: initboard; getmode; getsize; getkomi; plottest;    #
-# #        getplay; winner                                    #
-# #############################################################
-# testmmbd <- function(){
-#   plays <- list()
-#   i <- 1
-#   mode <- getmode()
-#   size <- getsize()
-#   komi <- getkomi()
-#   play <- plays[[1]] <- initboard(size)
-#   plottest(plays[[1]], size, i)
-#   while(TRUE){
-#     on <- getplay(mode, i, plays[[i]][[1]])
-#     if(all(on == c(-1, -1))) {
-#       plottest(plays[[i]], size)
-#       plays[[i]][[3]]$winner <- winner(plays[[i]], komi)
-#       cat(paste("End of game.", ifelse(plays[[i]][[3]]$winner==1, "Black wins.",
-#                                        "White wins.")))
-#       break()
-#     }
-#     if(all(on == c(-1, 0))) {
-#       i <- i-1
-#       plottest(plays[[i]], size, i)
-#       next()
-#     }
-#     if(all(on == c(0, 0)) | all(!play[[1]][, 10 + (i+1) %% 2])) {
-#       plays[[i+1]] <- play
-#       i <- i+1
-#       next()
-#     }
-#     
-#     invalidMoves <- tryCatch(
-#       {
-#         play <- playstone((i+1) %% 2 +1, on, plays[[i]], i, size)
-#       },
-#       error = function(e) e
-#     )
-#     
-#     if(inherits(invalidMoves, "error")) {
-#       print(invalidMoves$message)
-#       next()
-#     }
-#     
-#     plays[[i+1]] <- play
-#     if(mode == 2 & (i+1) %% 2 == 1)
-#       plottest(play, size, i)
-#     else if(mode == 3 & (i+1) %% 2 == 0)
-#       plottest(play, size, i)
-#     else if (mode == 1 | mode > 3)
-#       plottest(play, size, i)
-#     i = i+1
-# 
-#     if(checkend(play[[1]], i)){
-#       plottest(play, size)
-#       play[[3]]$winner <- winner(plays[[i]], komi)
-#       cat(paste("End of game.", ifelse(play[[3]]$winner==1, "Black wins.",
-#                                        "White wins.")))
-#       break()
-#     }
-#   }
-#   return(plays)
-# }
-# 
-# #############################################################
-# # replaymmbd: replay games loaded from SGF files            #
-# #          return a list of game state for each play        #
-# #   dep: initboard; getmode; getsize; getkomi;              #
-# #        plotgame; plotterr; getplay; winner                #
-# #                                                           #
-# #  play:      the game state at the end of game             #
-# #  states:    a matrix representing the board at each play  #
-# #             per row                                       #
-# #  sgfgame:   loaded sgf game                               #
-# #############################################################
-# replaymmbd <- function(game = NULL, komi = 7.5, size = 19, plotmove = FALSE){
-#   plays <- list()
-#   i <- 1
-#   play <- plays[[1]] <- initboard(size)
-#   if(plotmove)
-#     plotgame(plays[[1]], size, i)
-#   output.states <- NULL
-#   for(i in 1:nrow(game)){
-#     on <- unlist(game[i,2:3])
-#     if(all(on == c(0, 0)) | all(!play[[1]][, 10 + (i+1) %% 2])) {
-#       plays[[i+1]] <- play
-#       next()
-#     }
-#     play <- playstone(unlist(game[i,1]), on, plays[[i]], i, size)
-#     plays[[i+1]] <- play
-#     output.states <- rbind(output.states, play[[1]]$on)
-#     
-#     if(plotmove){
-#       plotgame(play, size, i)
-#       plt <- readline(prompt = "Press any key for next move. Press 'q' to quit plotting.\n")
-#       plotmove = (plt != "q" & plt != "Q")
-#     }
-#     cat("Play: ",i , "\n")
-#   }
-#   plotterr(play, size)
-#   play[[3]]$winner <- winner(plays[[i]], komi)
-#   cat(paste("End of game.", ifelse(play[[3]]$winner==1, "Black wins.",
-#                                    "White wins.")))
-#   return(list(play = play, states = output.states, sgfgame = game))
-# }
+replaymmbd <- function(game = NULL, komi = 7.5, size = 19, plotmove = FALSE){
+  plays <- list()
+  i <- 1
+  play <- plays[[1]] <- initboard(size)
+  if(plotmove)
+    plotgame(plays[[1]], size, i)
+  output.states <- NULL
+  for(i in 1:nrow(game)){
+    on <- unlist(game[i,2:3])
+    if(all(on == c(0, 0)) | all(!play[[1]][, 10 + (i+1) %% 2])) {
+      plays[[i+1]] <- play
+      next()
+    }
+    play <- playstone(unlist(game[i,1]), on, plays[[i]], i, size)
+    plays[[i+1]] <- play
+    output.states <- rbind(output.states, play[[1]]$on)
+    
+    if(plotmove){
+      plotgame(play, size, i)
+      plt <- readline(prompt = "Press any key for next move. Press 'q' to quit plotting.\n")
+      plotmove = (plt != "q" & plt != "Q")
+    }
+    cat("Play: ",i , "\n")
+  }
+  plotterr(play, size)
+  play[[3]]$winner <- winner(plays[[i]], komi)
+  cat(paste("End of game.", ifelse(play[[3]]$winner==1, "Black wins.",
+                                   "White wins.")))
+  return(list(play = play, states = output.states, sgfgame = game))
+}

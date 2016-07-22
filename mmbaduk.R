@@ -414,8 +414,6 @@ plottest <- function(play = NULL, n = NULL, i = NULL){
   whites <- subset(play$board, on == 2)
   black.terr <- subset(play$board, terr == 1)
   white.terr <- subset(play$board, terr == 2)
-  black.nallow <- subset(play$board, allowed.black == FALSE)
-  white.nallow <- subset(play$board, allowed.white == FALSE)
   black.eye <- subset(play$board, eye.black == TRUE)
   white.eye <- subset(play$board, eye.white == TRUE)
   
@@ -426,16 +424,13 @@ plottest <- function(play = NULL, n = NULL, i = NULL){
   points(white.terr$x, white.terr$y, pch = 21, 
          col = grey(0.7), bg = grey(0.9), cex = 2.2)
   
-  points(black.nallow$x, black.nallow$y, pch = 4, col = "blue")
-  points(white.nallow$x, white.nallow$y, pch = 4, col = "red")
-  
   points(black.eye$x, black.eye$y, pch = 3, col = "blue")
   points(white.eye$x, white.eye$y, pch = 3, col = "red")
   
   points(blacks$x, blacks$y, pch = 16, cex = 2.5)
   points(whites$x, whites$y, pch = 21, bg = "white", cex = 2.5)
   
-  if(sum(play$board$playnum == i) >0)
+  if(any(play$board$playnum == i))
     text(play$board$x[play$board$playnum == i], 
          play$board$y[play$board$playnum == i], 
          labels = i, col = "red", cex = 0.8)

@@ -85,7 +85,7 @@ getkomi <- function(){
 }
 
 #############################################################
-# getrandom: get a random play among valid moves              #
+# getrandom: get a random play among sensible moves         #
 #############################################################
 getrandom <- function(stone = NULL, play = NULL, n = NULL){
   board <- subset(play$board, 
@@ -104,7 +104,7 @@ getrandom <- function(stone = NULL, play = NULL, n = NULL){
 #############################################################
 getplay <- function(mode, stone, play, n){
   if(mode == 5){
-    cat("Play:", max(play$board$playnum) + 1, "\n")
+#    cat("Play:", max(play$board$playnum) + 1, "\n")
     return(getrandom(stone, play, n))
   }
   cat(ifelse(stone == 1, "Black's turn", "White's turn"))
@@ -166,29 +166,43 @@ getplay <- function(mode, stone, play, n){
 # playmmbd: play mmbaduk based on user input                #
 #           return a list of game states for each play      #
 #   dep: initboard; getmode; getsize; getkomi; plotgame;    #
-#        getplay; plotterr; winner                          #
+#        getplay; playstone; plotterr; winner               #
 #############################################################
 playmmbd <- function(load = NULL, size = 19, komi = 7.5, 
-                     sim = FALSE, ploton = TRUE, teston = FALSE){
+                     sim = FALSE, ploton = TRUE, teston = FALSE,
+                     load.komi = 7.5){
+  moves <- NULL
   plays <- list()
   stone <- i <- 1
   p <- 0
   if(sim){
     mode <- 5
-  }
-  else {
+    play <- initboard(size, load)
+    if(ploton) if(teston) plottest(play, size, i) else plotgame(play, size, i)
+    plays[[i]] <- play
+  } else if( is.null(load) ) {
     mode <- getmode()
     size <- getsize()
     komi <- getkomi()
+    play <- initboard(size, load)
+    if(ploton) if(teston) plottest(play, size, i) else plotgame(play, size, i)
+    plays[[i]] <- play
+  } else {
+    i <- max(load$board$playnum)
+    size <- max(load$board$x)
+    komi <- load.komi
+    mode <- getmode()
+    play <- initboard(size, load)
+    if(ploton) if(teston) plottest(play, size, i) else plotgame(play, size, i)
+    i <- i + 1
+    stone <- (i+1)%%2 + 1
+    plays[[i]] <- play
   }
-  plays[[1]] <- initboard(size, load)
-  play <- plays[[1]]
-  
-  if(ploton) if(teston) plottest(play, size, i) else plotgame(play, size, i)
   while(TRUE){
     on <- getplay(mode, stone, plays[[i]], size)
+    moves <- rbind(moves, c(stone = stone, on = on))
     if(all(on == c(-1, -1))) {
-      if(teston) plottest(play, size, i) else plotterr(play, size)
+      if(ploton) if(teston) plottest(play, size, i) else plotterr(play, size)
       play$scores$winner <- winner(play, komi)
       cat(paste("End of game.", ifelse(play$scores$winner == 1, "Black wins.",
                                        "White wins.")))
@@ -203,10 +217,12 @@ playmmbd <- function(load = NULL, size = 19, komi = 7.5,
       plays[[i+1]] <- play
       i = i+1
       p = p+1
+      stone = stone%% 2 +1
       if(p == 2){
-        if(teston) plottest(play, size, i) else plotterr(play, size)
+        if(ploton) if(teston) plottest(play, size, i) else plotterr(play, size)
         play$scores$winner <- winner(play, komi)
         plays[[i]] <- play
+        moves <- rbind(moves, c(stone = stone, on = on))
         cat(paste("End of game.", ifelse(play$scores$winner == 1, "Black wins.",
                                          "White wins.")))
         break()
@@ -230,50 +246,7 @@ playmmbd <- function(load = NULL, size = 19, komi = 7.5,
     p = 0
     plays[[i+1]] <- play
     i = i+1
-    stone = stone %% 2 +1
+    stone = stone%% 2 +1
   }
-  return(plays)
-}
-
-### TODO: update ### 
-#############################################################
-# replaymmbd: replay games loaded from SGF files            #
-#          return a list of game state for each play        #
-#   dep: initboard; getmode; getsize; getkomi;              #
-#        plotgame; plotterr; getplay; winner                #
-#                                                           #
-#  play:      the game state at the end of game             #
-#  states:    a matrix representing the board at each play  #
-#             per row                                       #
-#  sgfgame:   loaded sgf game                               #
-#############################################################
-replaymmbd <- function(game = NULL, komi = 7.5, size = 19, plotmove = FALSE){
-  plays <- list()
-  i <- 1
-  play <- plays[[1]] <- initboard(size)
-  if(plotmove)
-    plotgame(plays[[1]], size, i)
-  output.states <- NULL
-  for(i in 1:nrow(game)){
-    on <- unlist(game[i,2:3])
-    if(all(on == c(0, 0)) | all(!play[[1]][, 10 + (i+1) %% 2])) {
-      plays[[i+1]] <- play
-      next()
-    }
-    play <- playstone(unlist(game[i,1]), on, plays[[i]], i, size)
-    plays[[i+1]] <- play
-    output.states <- rbind(output.states, play[[1]]$on)
-    
-    if(plotmove){
-      plotgame(play, size, i)
-      plt <- readline(prompt = "Press any key for next move. Press 'q' to quit plotting.\n")
-      plotmove = (plt != "q" & plt != "Q")
-    }
-    cat("Play: ",i , "\n")
-  }
-  plotterr(play, size)
-  play[[3]]$winner <- winner(plays[[i]], komi)
-  cat(paste("End of game.", ifelse(play[[3]]$winner==1, "Black wins.",
-                                   "White wins.")))
-  return(list(play = play, states = output.states, sgfgame = game))
+  return(list(boards = plays, moves = moves, winner = play$scores$winner))
 }

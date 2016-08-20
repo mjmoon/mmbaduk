@@ -1,0 +1,694 @@
+e1 <- rnorm(30, sd = 1)
+y1 <- -100 + 0.2*x1 + e1
+plot(x1, y1)
+y1 <- -20 + 0.2*x1 + e1
+plot(x1, y1)
+y1 <- -40 + 0.2*x1 + e1
+plot(x1, y1)
+y1 <- -20 + 0.1*x1 + e1
+plot(x1, y1)
+y1 <- -10 + 0.1*x1 + e1
+plot(x1, y1)
+e1 <- rnorm(30, sd = 0.5)
+y1 <- -10 + 0.1*x1 + e1
+e1 <- rnorm(30, sd = 0.5)
+y1 <- -10 + 0.1*x1 + e1
+e1 <- rnorm(30, sd = 0.5)
+y1 <- -10 + 0.1*x1 + e1
+plot(x1, y1)
+y1 <- -12 + 0.07*x1 + e1
+plot(x1, y1)
+y1 <- -11 + 0.07*x1 + e1
+plot(x1, y1)
+y1 <- -10 + 0.07*x1 + e1
+plot(x1, y1)
+y1 <- -9 + 0.07*x1 + e1
+plot(x1, y1)
+y1 <- -8 + 0.07*x1 + e1
+plot(x1, y1)
+y1 <- -6 + 0.07*x1 + e1
+plot(x1, y1)
+plot(x1, y1, xlab = "Weight", ylab = "Height")
+plot(x1, y1, xlab = "Weight (lbs)", ylab = "Height (ft)")
+library(ggplot2)
+df <- data.frame(x1 = x1, x2 = x2, y1 = y1, y2 = y2)
+ggplot(data = dt, aes(x = x1, y = y1)) +#
+theme_minimal() + labs(x = "Weight (lbs)", y = "Height (ft)", title = "Simulated data 1") +#
+geom_point() +#
+gome_smoot()
+ggplot(data = dt, aes(x = x1, y = y1)) +#
+theme_minimal() + labs(x = "Weight (lbs)", y = "Height (ft)", title = "Simulated data 1") +#
+geom_point() +#
+gome_smooth()
+ggplot(data = dt, aes(x = x1, y = y1)) +#
+theme_minimal() + labs(x = "Weight (lbs)", y = "Height (ft)", title = "Simulated data 1") +#
+geom_point() +#
+goem_smooth()
+ggplot(data = dt, aes(x = x1, y = y1)) +#
+theme_minimal() + labs(x = "Weight (lbs)", y = "Height (ft)", title = "Simulated data 1") +#
+geom_point() +#
+geom_smooth()
+df <- data.frame(x1 = x1, x2 = x2, y1 = y1, y2 = y2)#
+#
+library(ggplot2)#
+#
+ggplot(data = dt, aes(x = x1, y = y1)) +#
+theme_minimal() + labs(x = "Weight (lbs)", y = "Height (ft)", title = "Simulated data 1") +#
+geom_point() +#
+geom_smooth()
+ggplot(data = dt, aes(x = x1, y = y1)) +#
+theme_minimal() + labs(x = "Weight (lbs)", y = "Height (ft)", title = "Simulated data 1") +#
+geom_point()
+str(dt)
+ggplot(data = df, aes(x = x1, y = y1)) +#
+theme_minimal() + labs(x = "Weight (lbs)", y = "Height (ft)", title = "Simulated data 1") +#
+geom_point() +#
+geom_smooth()
+?geom_smooth
+ggplot(data = df, aes(x = x1, y = y1)) +#
+theme_minimal() + labs(x = "Weight (lbs)", y = "Height (ft)", title = "Simulated data 1") +#
+geom_point() +#
+geom_smooth(method = "lm")
+ggplot(data = df, aes(x = x1, y = y1)) +#
+theme_minimal() + labs(x = "Weight (lbs)", y = "Height (ft)", title = "Simulated data 1") +#
+geom_point() +#
+geom_smooth(method = "lm", se = FALSE, color = "red")
+ggplot(data = df, aes(x = x2, y = y2)) +#
+theme_minimal() + labs(x = "Experience (year)", y = "Salary ($)", title = "Simulated data 2") +#
+geom_point() +#
+geom_smooth(method = "lm", se = FALSE, color = "red")
+ggplot(data = df, aes(x = x2, y = y2)) +#
+theme_minimal() + labs(x = "Experience (year)", y = "Salary ($)", title = "Simulated data 2") +#
+geom_point() +#
+geom_smooth(method = "lm", se = FALSE, color = "red") +#
+geom_smooth(method = "glm", se = FALSE, color = "blue", linetype = 2)
+ggplot(data = df, aes(x = x2, y = y2)) +#
+theme_minimal() + labs(x = "Experience (year)", y = "Salary ($)", title = "Simulated data 2") +#
+geom_point() +#
+geom_smooth(method = "lm", se = FALSE, color = "red") +#
+geom_smooth(se = FALSE, color = "blue", linetype = 2)
+summary(lm(y1 ~ x1, data = df))
+summary(lm(y2 ~ x2, data = df))
+ggplot(data = df, aes(x = x2, y = y2)) +#
+theme_minimal() + labs(x = "Experience (year)", y = "Salary ($)", title = "Simulated data 2") +#
+geom_point() +#
+geom_smooth(method = "lm", se = FALSE, color = "red") +#
+stat_function(fun = function(x) 40000 + 15000*log(x), color = "blue", linetype = 2)
+ggplot(data = df, aes(x = x1, y = y1)) +#
+theme_minimal() + labs(x = "Weight (lbs)", y = "Height (ft)", title = "Simulated data 1") +#
+geom_point()
+ggplot(data = df, aes(x = x1, y = y1)) +#
+theme_minimal() + #
+theme(axis.title = element_text(size = rel(1.5)),#
+        axis.text = element_text(size = rel(1.2))) + #
+        labs(x = "Weight (lbs)", y = "Height (ft)", title = "Simulated data 1") +#
+geom_point()
+ggplot(data = df, aes(x = x2, y = y2)) +#
+theme_minimal() + #
+theme(axis.title = element_text(size = rel(1.5)),#
+        axis.text = element_text(size = rel(1.2))) + #
+        labs(x = "Experience (year)", y = "Salary ($)", title = "Simulated data 2") +#
+geom_point()
+ggplot(data = df, aes(x = x1, y = y1)) +#
+theme_minimal() + #
+theme(axis.title = element_text(size = rel(1.5)),#
+        axis.text = element_text(size = rel(1.2))) + #
+        labs(x = "Weight (lbs)", y = "Height (ft)", title = "Simulated data 1") +#
+geom_point()
+ggplot(data = df, aes(x = x1, y = y1)) +#
+theme_minimal() + #
+theme(axis.title = element_text(size = rel(1.5)),#
+        axis.text = element_text(size = rel(1.2))) + #
+        labs(x = "Weight (lbs)", y = "Height (ft)", title = "Simulated data 1") +#
+geom_point() +#
+geom_smooth(method = "lm", se = FALSE, color = "red")
+sd(x1)
+mean(x1)
+sd(y1)
+mean(y1)
+corr(x1,y1)
+cor(x1,y1)
+summary(lm(y1 ~ x1, data = df))
+ggplot(data = df, aes(x = x2, y = y2)) +#
+theme_minimal() + #
+theme(axis.title = element_text(size = rel(1.5)),#
+        axis.text = element_text(size = rel(1.2))) + #
+        labs(x = "Experience (year)", y = "Salary ($)", title = "Simulated data 2") +#
+geom_point()
+ggplot(data = df, aes(x = x2, y = y2)) +#
+theme_minimal() + #
+theme(axis.title = element_text(size = rel(1.5)),#
+        axis.text = element_text(size = rel(1.2))) + #
+        labs(x = "Experience (year)", y = "Salary ($)", title = "Simulated data 2") +#
+geom_point() +#
+geom_smooth(method = "lm", se = FALSE, color = "red")
+ggplot(data = df, aes(x = x2, y = y2)) +#
+theme_minimal() + #
+theme(axis.title = element_text(size = rel(1.5)),#
+        axis.text = element_text(size = rel(1.2))) + #
+        labs(x = "Experience (year)", y = "Salary ($)", title = "Simulated data 2") +#
+geom_point() +#
+geom_smooth(method = "lm", se = FALSE, color = "red") +#
+stat_function(fun = function(x) 40000 + 15000*log(x), color = "blue", linetype = 2)
+summary(lm(y2 ~ x2, data = df))
+plot(residual(lm(y2 ~ x2, data = df)))
+plot(residuals(lm(y2 ~ x2, data = df)))
+library(shiny)
+runExample("01_hello")
+runExample("02_text")
+runExample("03_reactivity") # a reactive expression
+runExample("07_widgets") # help text and submit buttons
+runExample("08_html") # Shiny app built from HTML
+a <- rbind(c(1,9), c(2,3))#
+b <- rbind(c(10,4), c(5,2))#
+c <- rbind(c(4,2,8), c(1,0,4), c(6,3,12))#
+d <- rbind(c(1,0,2,1), c(2,0,4,0), c(0,3,4,1), c(1,0,0,2))
+det(a)
+det(b)#
+det(c)#
+det(d)
+library(MASS)
+fractions(solve(a))
+fractions(solve(b))
+fractions(solve(c))
+fractions(solve(d))
+e <- rbind(c(0,4,0,2), c(3,2,0,-1), c(2,-1,-5,1), c(0,2,2,1))
+det(e)
+d2 <- rbind(c(-1,-1, 1/2, 1), c(1/2, 1/2, -1/2, -1/2), c(0, 1/3, 0, 0), c(1/3, 1/6, -1/12, 0))
+d%*%d2
+fractions(d%*%d2)
+d <- rbind(c(1,0,2,1), c(2,0,4,0), c(0,3,4,1), c(1,0,0,2))
+fractions(solve(d))
+ln(0)
+log(0)
+log(-1)
+exp(-1)
+exp(1)
+exp(0)
+x < -seq(1,100)
+x
+x <- seq(1,100)
+plot(x, log(x))
+plot(x, log(x), type = "l")
+lines(x, 1/x)
+lines(x, 5/x)
+lines(x, (x-20)^2)
+lines(x, -(x-20)^2)
+lines(x, -(x-20)^2+2)
+plot(x, -(x-20)^2+2)
+plot(x, -(x+20)^2+2, type = "l")
+plot(x, -(2x-20)^2+2, type = "l")
+plot(x, -(2*x-20)^2+2, type = "l")
+0
+plot(x, -(2*x-20)^2+20, type = "l")
+plot(x, -(2*x-2000)^2+20, type = "l")
+plot(x, -(2*x-200)^2+20, type = "l")
+plot(x, -(20*x-20)^2+20, type = "l")
+plot(x, -(20*x-20)^2+200, type = "l")
+plot(x, -(20*x-200)^2+200, type = "l")
+plot(x, -(x-20)^2+200, type = "l")
+plot(x, -(x-20)^3+200, type = "l")
+x<-seq(0:20)
+plot(x, -(x-20)^3+200, type = "l")
+plot(x, -(x)^3+200, type = "l")
+plot(x, (x)^3, type = "l")
+plot(x, -(2--*x)^3+200, type = "l")
+plot(x, -(20*x)^3+200, type = "l")
+plot(x, -(x)^3+200, type = "l")
+plot(x, -(x)^3+2000, type = "l")
+plot(x, -(x)^3+2000 + x, type = "l")
+plot(x, -(x)^3+2000 + x^2, type = "l")
+plot(x, -(x)^3+2000 + x^3, type = "l")
+plot(x, -(x)^3+2000 + 2*x^3, type = "l")
+plot(x, -(x)^3+2000 + 2*x^5, type = "l")
+plot(x, -(x)^3+2000 + x^4, type = "l")
+plot(x, x^3+x^2+x+20, type = "l")
+plot(x, x^3-x^2+x+20, type = "l")
+plot(x, x^3-x^2+5&x+20, type = "l")
+plot(x, x^3-x^2+5*x+20, type = "l")
+-
+plot(x, x^3-x^2-5*x+20, type = "l")
+plot(x, -x^3+10*x^2-5*x+20, type = "l")
+plot(x, -x^3+100*x^2-5*x+200, type = "l")
+plot(x, -x^3+20*x^2-5*x+20, type = "l")
+plot(x, -x^3+20*x^2-5*x+50, type = "l")
+plot(x, -x^3+25*x^2-5*x+50, type = "l")
+plot(x, -0.1*x^3+2.5*x^2-0.5*x+5, type = "l")
+plot(NULL, type = "m")
+plot(NULL, type = "m", xlim = c(0,10), ylim = c(0,10))
+plot(NULL, type = "n", xlim = c(0,10), ylim = c(0,10))
+plot(NULL, type = "n", xlim = c(0,10), ylim = c(0,10), axes =FALSE, xlab ="", ylab = "")
+segments(0,0,10,10)
+plot(NULL, type = "n", xlim = c(0,10), ylim = c(0,10), axes =FALSE, xlab ="", ylab = "")
+segments(0,0,10,0)
+segments(0,0,0,5)
+segments(0,5,5,10)
+segments(5,10,5,5)
+segments(5,5,10,5)
+segments(10,5,10,0)
+segments(0,5,5,5, lty = 3)
+text(2.5, 7.2, adj = 0, labels = "A")
+text(2.5, 7.5, adj = 0, hadj = 0, labels = "A", cex = 2)
+plot(NULL, type = "n", xlim = c(0,10), ylim = c(0,10), axes =FALSE, xlab ="", ylab = "")#
+segments(0,0,10,0)#
+segments(0,0,0,5)#
+segments(0,5,5,10)#
+segments(5,10,5,5)#
+segments(5,5,10,5)#
+segments(10,5,10,0)#
+segments(0,5,5,5, lty = 3)#
+text(2.5, 7.5, adj = 0, hadj = 0, labels = "A", cex = 2)
+?text
+plot(NULL, type = "n", xlim = c(0,10), ylim = c(0,10), axes =FALSE, xlab ="", ylab = "")#
+segments(0,0,10,0)#
+segments(0,0,0,5)#
+segments(0,5,5,10)#
+segments(5,10,5,5)#
+segments(5,5,10,5)#
+segments(10,5,10,0)#
+segments(0,5,5,5, lty = 3)#
+text(2.5, 7.5, adj = c(0,0), labels = "A", cex = 2)
+text(2.5, 7.5, adj = c(1,1), labels = "A", cex = 2)
+plot(NULL, type = "n", xlim = c(0,10), ylim = c(0,10), axes =FALSE, xlab ="", ylab = "")#
+segments(0,0,10,0)#
+segments(0,0,0,5)#
+segments(0,5,5,10)#
+segments(5,10,5,5)#
+segments(5,5,10,5)#
+segments(10,5,10,0)#
+segments(0,5,5,5, lty = 3)#
+text(2.5, 7.5, adj = c(1,1), labels = "A", cex = 3, font = 2)
+plot(NULL, type = "n", xlim = c(0,10), ylim = c(0,10), axes =FALSE, xlab ="", ylab = "")#
+segments(0,0,10,0)#
+segments(0,0,0,5)#
+segments(0,5,5,10)#
+segments(5,10,5,5)#
+segments(5,5,10,5)#
+segments(10,5,10,0)#
+segments(0,5,5,5, lty = 3)#
+text(2.5, 7.5, adj = c(0,1), labels = "A", cex = 3, font = 2)
+plot(NULL, type = "n", xlim = c(0,10), ylim = c(0,10), axes =FALSE, xlab ="", ylab = "")#
+segments(0,0,10,0)#
+segments(0,0,0,5)#
+segments(0,5,5,10)#
+segments(5,10,5,5)#
+segments(5,5,10,5)#
+segments(10,5,10,0)#
+segments(0,5,5,5, lty = 3)#
+segments(5,0,5,5, lty = 3)#
+text(2.5, 7.5, adj = c(0,1), labels = "A", cex = 3, font = 2)#
+text(2.5, 2.5, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)
+plot(NULL, type = "n", xlim = c(0,10), ylim = c(0,10), axes =FALSE, xlab ="", ylab = "")#
+segments(0,0,10,0)#
+segments(0,0,0,5)#
+segments(0,5,5,10)#
+segments(5,10,5,5)#
+segments(5,5,10,5)#
+segments(10,5,10,0)#
+segments(0,5,5,5, lty = 3)#
+segments(5,0,5,5, lty = 3)#
+text(2.5, 7, adj = c(0.5,1), labels = "A", cex = 3, font = 2)#
+text(2.5, 2.5, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)#
+text(7.5, 2.5, adj = c(0.5,0.5), labels = "C", cex = 3, font = 2)
+dd <- 10#
+r <- 7#
+x <- seq(r,d, by = 0.1)#
+plot(NULL, type = "n", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+segments(0,0,d,0)#
+segments(0,0,0,r)#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, w - r/2, adj = c(0.5,1), labels = "A", cex = 3, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)#
+text(w - r/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 3, font = 2)
+d <- 10#
+r <- 7#
+x <- seq(r,d, by = 0.1)#
+plot(NULL, type = "n", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+segments(0,0,d,0)#
+segments(0,0,0,r)#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - r/2, adj = c(0.5,1), labels = "A", cex = 3, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)#
+text(d - r/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 3, font = 2)
+d <- 10#
+r <- 7#
+x <- seq(r,d, by = 0.1)#
+plot(NULL, type = "n", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+segments(0,0,d,0)#
+segments(0,0,0,r)#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0.5,1), labels = "A", cex = 3, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 3, font = 2)
+d <- 10#
+r <- 7#
+x <- seq(r,d, by = 0.1)#
+plot(NULL, type = "n", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+segments(r,0,d,0)#
+#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0.5,1), labels = "A", cex = 3, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 3, font = 2)
+d <- 10#
+r <- 8#
+x <- seq(r,d, by = 0.1)#
+plot(NULL, type = "n", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+segments(r,0,d,0)#
+#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0.5,1), labels = "A", cex = 3, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 3, font = 2)
+d <- 10#
+r <- 4#
+x <- seq(r,d, by = 0.1)#
+plot(NULL, type = "n", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+segments(r,0,d,0)#
+#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0.5,1), labels = "A", cex = 3, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 3, font = 2)
+d <- 10#
+r <- 6#
+x <- seq(r,d, by = 0.1)#
+plot(NULL, type = "n", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+segments(r,0,d,0)#
+#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0.5,1), labels = "A", cex = 3, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 3, font = 2)
+d <- 10#
+r <- 6#
+x <- seq(r,d, by = 0.1)#
+plot(x, -sqrt((r-w)^2)+r type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+segments(r,0,d,0)#
+#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0.5,1), labels = "A", cex = 3, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 3, font = 2)
+plot(x, -sqrt((r-w)^2)+r type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, -sqrt((r-w)^2)+r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, -sqrt((r-d)^2)+r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, -sqrt((x)^2)+r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, -sqrt((x-r)^2)+r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, -sqrt((x-r)^2), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, sqrt((x-r)^2), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, (x-r)), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, (x-r)^2), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, (x-r)^2, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, (x)^2, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+x <- seq(0,r, by = 0.1)
+plot(x, (x)^2, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, (x-r)^2, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, sqrt(r^2-(x)^2), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, sqrt(r^2-(x)^2), type = "l", xlim = c(0,d), ylim = c(0,d),
+xlab ="", ylab = "")
+axis(1, lty = 0, at = r, labels = 4)
+plot(x, sqrt(r^2-(x)^2), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+axis(1, lty = 0, at = r, labels = 4)
+axis(1, line = FALSE, at = r, labels = 4)
+plot(x, sqrt(r^2-(x)^2), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+axis(1, line = FALSE, at = c(r,d), labels = c(r,d))
+axis(2, line = FALSE, at = c(r,d), labels = c(r,d))
+?axis
+axis(1, at = c(r,d), labels = c(r,d), lty = 0)
+plot(x, sqrt(r^2-(x)^2), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r,d), labels = c(r,d), lty = 0
+axis(1, at = c(r,d), labels = c(r,d), lty = 0)
+plot(x, sqrt(r^2-(x)^2), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c(r/2, d - (d-r)/2), lty = 0)#
+axis(1, at = c(0,r,d), labels = NULL)#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c(r/2, d - (d-r)/2), lty = 0)#
+axis(2, at = c(0,r,d), labels = NULL)
+plot(x, sqrt(r^2-(x)^2), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c(r/2, d - (d-r)/2), lty = 0)#
+axis(1, at = c(0,r,d), labels = "")#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c(r/2, d - (d-r)/2), lty = 0)#
+axis(2, at = c(0,r,d), labels = "")
+axis(1, at = c(0,r,d), labels = "")
+axis(1, at = c(0,r,d), labels = " ")
+axis(1, at = c(0,r,d), labels = FALSE)
+d <- 10#
+r <- 6#
+x <- seq(0,r, by = 0.1)#
+plot(x, sqrt(r^2-(x)^2), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(1, at = c(0,r,d), labels = FALSE)#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)
+axis(2, at = c(0,r,d), labels = FALSE)
+d <- 10#
+r <- 6#
+x <- seq(0,r, by = 0.1)#
+plot(x, -sqrt(r^2-(x - r)^2) + r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(1, at = c(0,r,d), labels = FALSE)#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(2, at = c(0,r,d), labels = FALSE)
+d <- 10#
+r <- 6#
+x <- seq(0,r, by = 0.1)#
+plot(x, -sqrt(r^2-(x - r)^2) + r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(1, at = c(0,r,d), labels = FALSE)#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(2, at = c(0,r,d), labels = FALSE)#
+segments(r,0,d,0)#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0.5,1), labels = "A", cex = 3, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 3, font = 2)
+d <- 10#
+r <- 6#
+x <- seq(0,r, by = 0.1)#
+plot(x, -sqrt(r^2-(x - r)^2) + r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(1, at = c(0,r,d), labels = FALSE)#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(2, at = c(0,r,d), labels = FALSE)#
+segments(r,0,d,0)#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0.5,1), labels = "A", cex = 2, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 2, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 2, font = 2)
+d <- 10#
+r <- 6#
+x <- seq(0,r, by = 0.1)#
+plot(x, -sqrt(r^2-(x - r)^2) + r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(1, at = c(0,r,d), labels = FALSE)#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(2, at = c(0,r,d), labels = FALSE)#
+segments(r,0,d,0)#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(1,1), labels = "A", cex = 2, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 2, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 2, font = 2)
+d <- 10#
+r <- 6#
+x <- seq(0,r, by = 0.1)#
+plot(x, -sqrt(r^2-(x - r)^2) + r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(1, at = c(0,r,d), labels = FALSE)#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(2, at = c(0,r,d), labels = FALSE)#
+segments(r,0,d,0)#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0,1), labels = "A", cex = 2, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 2, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 2, font = 2)
+d <- 10#
+r <- 6#
+x <- seq(0,r, by = 0.1)#
+plot(x, -sqrt(r^2-(x - r)^2) + r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(1, at = c(0,r,d), labels = FALSE)#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(2, at = c(0,r,d), labels = FALSE)#
+segments(r,0,d,0)#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0,1), labels = "A", cex = 2, font = 2)#
+text(r/2, r/2, adj = c(0,1), labels = "B", cex = 2, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 2, font = 2)
+d <- 10#
+r <- 6#
+x <- seq(0,r, by = 0.1)#
+plot(x, -sqrt(r^2-(x - r)^2) + r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(1, at = c(0,r,d), labels = FALSE)#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(2, at = c(0,r,d), labels = FALSE)#
+segments(r,0,d,0)#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0,1), labels = "A", cex = 2, font = 2)#
+text(r/2, r/2, adj = c(0,0), labels = "B", cex = 2, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 2, font = 2)
+d <- 10#
+r <- 6#
+x <- seq(0,r, by = 0.1)#
+plot(x, -sqrt(r^2-(x - r)^2) + r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(1, at = c(0,r,d), labels = FALSE)#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(2, at = c(0,r,d), labels = FALSE)#
+segments(r,0,d,0)#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0,1), labels = "A", cex = 2, font = 2)#
+text(r/2, r/2, adj = c(0,0), labels = "B", cex = 2, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0), labels = "C", cex = 2, font = 2)
+Sys.time()
+t0 <- Sys.time()
+Sys.time() - t0
+t0 <- proc.time()
+proc.time() - t0
+install.packages("retrosheet")
+rm(list = ls())#
+library(mxnet)#
+train<-read.csv('https://github.com/ozt-ca/tjo.hatenablog.samples/raw/master/r_samples/public_lib/jp/mnist_reproduced/short_prac_train.csv')#
+test<-read.csv('https://github.com/ozt-ca/tjo.hatenablog.samples/raw/master/r_samples/public_lib/jp/mnist_reproduced/short_prac_test.csv')#
+train<-data.matrix(train)#
+test<-data.matrix(test)#
+train.x<-train[,-1]#
+train.y<-train[,1]#
+train.x<-t(train.x/255)#
+test_org<-test#
+test<-test[,-1]#
+test<-t(test/255)#
+table(train.y)
+data <- mx.symbol.Variable('data')#
+# first conv#
+conv1 <- mx.symbol.Convolution(data=data, kernel=c(5,5), num_filter=20)#
+relu1 <- mx.symbol.Activation(data=conv1, act_type="relu")#
+pool1 <- mx.symbol.Pooling(data=relu1, pool_type="max", kernel=c(2,2), stride=c(2,2))#
+# second conv#
+conv2 <- mx.symbol.Convolution(data=pool1, kernel=c(5,5), num_filter=50)#
+relu2 <- mx.symbol.Activation(data=conv2, act_type="relu")#
+pool2 <- mx.symbol.Pooling(data=relu2, pool_type="max", kernel=c(2,2), stride=c(2,2))#
+# first fullc#
+flatten <- mx.symbol.Flatten(data=pool2)#
+fc1 <- mx.symbol.FullyConnected(data=flatten, num_hidden=500)#
+relu3 <- mx.symbol.Activation(data=fc1, act_type="relu")#
+# second fullc#
+fc2 <- mx.symbol.FullyConnected(data=relu3, num_hidden=10)#
+# loss#
+lenet <- mx.symbol.SoftmaxOutput(data=fc2)#
+train.array <- train.x#
+dim(train.array) <- c(28, 28, 1, ncol(train.x))#
+test.array <- test#
+dim(test.array) <- c(28, 28, 1, ncol(test))#
+mx.set.seed(0)#
+tic <- proc.time()#
+model <- mx.model.FeedForward.create(#
+  lenet, X=train.array, y=train.y,#
+  ctx=devices, num.round=20, array.batch.size=100,#
+  learning.rate=0.05, momentum=0.9, wd=0.00001,#
+  eval.metric=mx.metric.accuracy,#
+  epoch.end.callback=mx.callback.log.train.metric(100)#
+  )
+devices <- mx.cpu()
+model <- mx.model.FeedForward.create(#
+  lenet, X=train.array, y=train.y,#
+  ctx=devices, num.round=20, array.batch.size=100,#
+  learning.rate=0.05, momentum=0.9, wd=0.00001,#
+  eval.metric=mx.metric.accuracy,#
+  epoch.end.callback=mx.callback.log.train.metric(100)#
+  )
+print(graph.vix(model))
+print(graph.vis(model))
+print(graph.viz(model))
+print(graph.viz(model$symbol$as.jason()))
+print(graph.viz(lenet$as.json()))
+setwd("./Github/mmbaduk/sims/")
+load("sim01-500.RData")
+rm(list = ls())
+load("sim01-500.RData")
+load("sim02-250.RData")
+setwd("./Github/mmbaduk/sims/")
+getwd()
+load("test.RData")
+load("/Users/mjmoon/Github/mmbaduk/sims/sim01-250.RData")
+load("/Users/mjmoon/Github/mmbaduk/sims/sim02-250.RData")
+load("/Users/mjmoon/Github/mmbaduk/sims/sim03-250.RData")
+load("/Users/mjmoon/Github/mmbaduk/sims/sim04-250.RData")
+load("/Users/mjmoon/Github/mmbaduk/sims/sim05-250.RData")
+load("/Users/mjmoon/Github/mmbaduk/sims/sim06-250.RData")
+load("/Users/mjmoon/Github/mmbaduk/sims/sim07-250.RData")
+load("/Users/mjmoon/Github/mmbaduk/sims/sim08-250.RData")

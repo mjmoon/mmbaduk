@@ -1,0 +1,1601 @@
+plot(x, -x^3+10*x^2-5*x+20, type = "l")
+plot(x, -x^3+100*x^2-5*x+200, type = "l")
+plot(x, -x^3+20*x^2-5*x+20, type = "l")
+plot(x, -x^3+20*x^2-5*x+50, type = "l")
+plot(x, -x^3+25*x^2-5*x+50, type = "l")
+plot(x, -0.1*x^3+2.5*x^2-0.5*x+5, type = "l")
+plot(NULL, type = "m")
+plot(NULL, type = "m", xlim = c(0,10), ylim = c(0,10))
+plot(NULL, type = "n", xlim = c(0,10), ylim = c(0,10))
+plot(NULL, type = "n", xlim = c(0,10), ylim = c(0,10), axes =FALSE, xlab ="", ylab = "")
+segments(0,0,10,10)
+plot(NULL, type = "n", xlim = c(0,10), ylim = c(0,10), axes =FALSE, xlab ="", ylab = "")
+segments(0,0,10,0)
+segments(0,0,0,5)
+segments(0,5,5,10)
+segments(5,10,5,5)
+segments(5,5,10,5)
+segments(10,5,10,0)
+segments(0,5,5,5, lty = 3)
+text(2.5, 7.2, adj = 0, labels = "A")
+text(2.5, 7.5, adj = 0, hadj = 0, labels = "A", cex = 2)
+plot(NULL, type = "n", xlim = c(0,10), ylim = c(0,10), axes =FALSE, xlab ="", ylab = "")#
+segments(0,0,10,0)#
+segments(0,0,0,5)#
+segments(0,5,5,10)#
+segments(5,10,5,5)#
+segments(5,5,10,5)#
+segments(10,5,10,0)#
+segments(0,5,5,5, lty = 3)#
+text(2.5, 7.5, adj = 0, hadj = 0, labels = "A", cex = 2)
+?text
+plot(NULL, type = "n", xlim = c(0,10), ylim = c(0,10), axes =FALSE, xlab ="", ylab = "")#
+segments(0,0,10,0)#
+segments(0,0,0,5)#
+segments(0,5,5,10)#
+segments(5,10,5,5)#
+segments(5,5,10,5)#
+segments(10,5,10,0)#
+segments(0,5,5,5, lty = 3)#
+text(2.5, 7.5, adj = c(0,0), labels = "A", cex = 2)
+text(2.5, 7.5, adj = c(1,1), labels = "A", cex = 2)
+plot(NULL, type = "n", xlim = c(0,10), ylim = c(0,10), axes =FALSE, xlab ="", ylab = "")#
+segments(0,0,10,0)#
+segments(0,0,0,5)#
+segments(0,5,5,10)#
+segments(5,10,5,5)#
+segments(5,5,10,5)#
+segments(10,5,10,0)#
+segments(0,5,5,5, lty = 3)#
+text(2.5, 7.5, adj = c(1,1), labels = "A", cex = 3, font = 2)
+plot(NULL, type = "n", xlim = c(0,10), ylim = c(0,10), axes =FALSE, xlab ="", ylab = "")#
+segments(0,0,10,0)#
+segments(0,0,0,5)#
+segments(0,5,5,10)#
+segments(5,10,5,5)#
+segments(5,5,10,5)#
+segments(10,5,10,0)#
+segments(0,5,5,5, lty = 3)#
+text(2.5, 7.5, adj = c(0,1), labels = "A", cex = 3, font = 2)
+plot(NULL, type = "n", xlim = c(0,10), ylim = c(0,10), axes =FALSE, xlab ="", ylab = "")#
+segments(0,0,10,0)#
+segments(0,0,0,5)#
+segments(0,5,5,10)#
+segments(5,10,5,5)#
+segments(5,5,10,5)#
+segments(10,5,10,0)#
+segments(0,5,5,5, lty = 3)#
+segments(5,0,5,5, lty = 3)#
+text(2.5, 7.5, adj = c(0,1), labels = "A", cex = 3, font = 2)#
+text(2.5, 2.5, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)
+plot(NULL, type = "n", xlim = c(0,10), ylim = c(0,10), axes =FALSE, xlab ="", ylab = "")#
+segments(0,0,10,0)#
+segments(0,0,0,5)#
+segments(0,5,5,10)#
+segments(5,10,5,5)#
+segments(5,5,10,5)#
+segments(10,5,10,0)#
+segments(0,5,5,5, lty = 3)#
+segments(5,0,5,5, lty = 3)#
+text(2.5, 7, adj = c(0.5,1), labels = "A", cex = 3, font = 2)#
+text(2.5, 2.5, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)#
+text(7.5, 2.5, adj = c(0.5,0.5), labels = "C", cex = 3, font = 2)
+dd <- 10#
+r <- 7#
+x <- seq(r,d, by = 0.1)#
+plot(NULL, type = "n", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+segments(0,0,d,0)#
+segments(0,0,0,r)#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, w - r/2, adj = c(0.5,1), labels = "A", cex = 3, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)#
+text(w - r/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 3, font = 2)
+d <- 10#
+r <- 7#
+x <- seq(r,d, by = 0.1)#
+plot(NULL, type = "n", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+segments(0,0,d,0)#
+segments(0,0,0,r)#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - r/2, adj = c(0.5,1), labels = "A", cex = 3, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)#
+text(d - r/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 3, font = 2)
+d <- 10#
+r <- 7#
+x <- seq(r,d, by = 0.1)#
+plot(NULL, type = "n", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+segments(0,0,d,0)#
+segments(0,0,0,r)#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0.5,1), labels = "A", cex = 3, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 3, font = 2)
+d <- 10#
+r <- 7#
+x <- seq(r,d, by = 0.1)#
+plot(NULL, type = "n", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+segments(r,0,d,0)#
+#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0.5,1), labels = "A", cex = 3, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 3, font = 2)
+d <- 10#
+r <- 8#
+x <- seq(r,d, by = 0.1)#
+plot(NULL, type = "n", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+segments(r,0,d,0)#
+#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0.5,1), labels = "A", cex = 3, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 3, font = 2)
+d <- 10#
+r <- 4#
+x <- seq(r,d, by = 0.1)#
+plot(NULL, type = "n", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+segments(r,0,d,0)#
+#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0.5,1), labels = "A", cex = 3, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 3, font = 2)
+d <- 10#
+r <- 6#
+x <- seq(r,d, by = 0.1)#
+plot(NULL, type = "n", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+segments(r,0,d,0)#
+#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0.5,1), labels = "A", cex = 3, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 3, font = 2)
+d <- 10#
+r <- 6#
+x <- seq(r,d, by = 0.1)#
+plot(x, -sqrt((r-w)^2)+r type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+segments(r,0,d,0)#
+#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0.5,1), labels = "A", cex = 3, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 3, font = 2)
+plot(x, -sqrt((r-w)^2)+r type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, -sqrt((r-w)^2)+r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, -sqrt((r-d)^2)+r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, -sqrt((x)^2)+r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, -sqrt((x-r)^2)+r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, -sqrt((x-r)^2), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, sqrt((x-r)^2), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, (x-r)), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, (x-r)^2), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, (x-r)^2, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, (x)^2, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+x <- seq(0,r, by = 0.1)
+plot(x, (x)^2, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, (x-r)^2, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, sqrt(r^2-(x)^2), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+plot(x, sqrt(r^2-(x)^2), type = "l", xlim = c(0,d), ylim = c(0,d),
+xlab ="", ylab = "")
+axis(1, lty = 0, at = r, labels = 4)
+plot(x, sqrt(r^2-(x)^2), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+axis(1, lty = 0, at = r, labels = 4)
+axis(1, line = FALSE, at = r, labels = 4)
+plot(x, sqrt(r^2-(x)^2), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")
+axis(1, line = FALSE, at = c(r,d), labels = c(r,d))
+axis(2, line = FALSE, at = c(r,d), labels = c(r,d))
+?axis
+axis(1, at = c(r,d), labels = c(r,d), lty = 0)
+plot(x, sqrt(r^2-(x)^2), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r,d), labels = c(r,d), lty = 0
+axis(1, at = c(r,d), labels = c(r,d), lty = 0)
+plot(x, sqrt(r^2-(x)^2), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c(r/2, d - (d-r)/2), lty = 0)#
+axis(1, at = c(0,r,d), labels = NULL)#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c(r/2, d - (d-r)/2), lty = 0)#
+axis(2, at = c(0,r,d), labels = NULL)
+plot(x, sqrt(r^2-(x)^2), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c(r/2, d - (d-r)/2), lty = 0)#
+axis(1, at = c(0,r,d), labels = "")#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c(r/2, d - (d-r)/2), lty = 0)#
+axis(2, at = c(0,r,d), labels = "")
+axis(1, at = c(0,r,d), labels = "")
+axis(1, at = c(0,r,d), labels = " ")
+axis(1, at = c(0,r,d), labels = FALSE)
+d <- 10#
+r <- 6#
+x <- seq(0,r, by = 0.1)#
+plot(x, sqrt(r^2-(x)^2), type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(1, at = c(0,r,d), labels = FALSE)#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)
+axis(2, at = c(0,r,d), labels = FALSE)
+d <- 10#
+r <- 6#
+x <- seq(0,r, by = 0.1)#
+plot(x, -sqrt(r^2-(x - r)^2) + r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(1, at = c(0,r,d), labels = FALSE)#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(2, at = c(0,r,d), labels = FALSE)
+d <- 10#
+r <- 6#
+x <- seq(0,r, by = 0.1)#
+plot(x, -sqrt(r^2-(x - r)^2) + r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(1, at = c(0,r,d), labels = FALSE)#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(2, at = c(0,r,d), labels = FALSE)#
+segments(r,0,d,0)#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0.5,1), labels = "A", cex = 3, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 3, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 3, font = 2)
+d <- 10#
+r <- 6#
+x <- seq(0,r, by = 0.1)#
+plot(x, -sqrt(r^2-(x - r)^2) + r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(1, at = c(0,r,d), labels = FALSE)#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(2, at = c(0,r,d), labels = FALSE)#
+segments(r,0,d,0)#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0.5,1), labels = "A", cex = 2, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 2, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 2, font = 2)
+d <- 10#
+r <- 6#
+x <- seq(0,r, by = 0.1)#
+plot(x, -sqrt(r^2-(x - r)^2) + r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(1, at = c(0,r,d), labels = FALSE)#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(2, at = c(0,r,d), labels = FALSE)#
+segments(r,0,d,0)#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(1,1), labels = "A", cex = 2, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 2, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 2, font = 2)
+d <- 10#
+r <- 6#
+x <- seq(0,r, by = 0.1)#
+plot(x, -sqrt(r^2-(x - r)^2) + r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(1, at = c(0,r,d), labels = FALSE)#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(2, at = c(0,r,d), labels = FALSE)#
+segments(r,0,d,0)#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0,1), labels = "A", cex = 2, font = 2)#
+text(r/2, r/2, adj = c(0.5,0.5), labels = "B", cex = 2, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 2, font = 2)
+d <- 10#
+r <- 6#
+x <- seq(0,r, by = 0.1)#
+plot(x, -sqrt(r^2-(x - r)^2) + r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(1, at = c(0,r,d), labels = FALSE)#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(2, at = c(0,r,d), labels = FALSE)#
+segments(r,0,d,0)#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0,1), labels = "A", cex = 2, font = 2)#
+text(r/2, r/2, adj = c(0,1), labels = "B", cex = 2, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 2, font = 2)
+d <- 10#
+r <- 6#
+x <- seq(0,r, by = 0.1)#
+plot(x, -sqrt(r^2-(x - r)^2) + r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(1, at = c(0,r,d), labels = FALSE)#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(2, at = c(0,r,d), labels = FALSE)#
+segments(r,0,d,0)#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0,1), labels = "A", cex = 2, font = 2)#
+text(r/2, r/2, adj = c(0,0), labels = "B", cex = 2, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0.5), labels = "C", cex = 2, font = 2)
+d <- 10#
+r <- 6#
+x <- seq(0,r, by = 0.1)#
+plot(x, -sqrt(r^2-(x - r)^2) + r, type = "l", xlim = c(0,d), ylim = c(0,d), axes =FALSE, xlab ="", ylab = "")#
+axis(1, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(1, at = c(0,r,d), labels = FALSE)#
+axis(2, at = c(r/2, d - (d-r)/2), labels = c("r", "d - r"), lty = 0)#
+axis(2, at = c(0,r,d), labels = FALSE)#
+segments(r,0,d,0)#
+segments(0,r,r,d)#
+segments(r,d,r,r)#
+segments(r,r,d,r)#
+segments(d,r,d,0)#
+segments(0,r,r,r, lty = 3)#
+segments(r,0,r,r, lty = 3)#
+text(r/2, d - (d-r)/2, adj = c(0,1), labels = "A", cex = 2, font = 2)#
+text(r/2, r/2, adj = c(0,0), labels = "B", cex = 2, font = 2)#
+text(d - (d-r)/2, r/2, adj = c(0.5,0), labels = "C", cex = 2, font = 2)
+Sys.time()
+t0 <- Sys.time()
+Sys.time() - t0
+t0 <- proc.time()
+proc.time() - t0
+install.packages("retrosheet")
+rm(list = ls())#
+library(mxnet)#
+train<-read.csv('https://github.com/ozt-ca/tjo.hatenablog.samples/raw/master/r_samples/public_lib/jp/mnist_reproduced/short_prac_train.csv')#
+test<-read.csv('https://github.com/ozt-ca/tjo.hatenablog.samples/raw/master/r_samples/public_lib/jp/mnist_reproduced/short_prac_test.csv')#
+train<-data.matrix(train)#
+test<-data.matrix(test)#
+train.x<-train[,-1]#
+train.y<-train[,1]#
+train.x<-t(train.x/255)#
+test_org<-test#
+test<-test[,-1]#
+test<-t(test/255)#
+table(train.y)
+data <- mx.symbol.Variable('data')#
+# first conv#
+conv1 <- mx.symbol.Convolution(data=data, kernel=c(5,5), num_filter=20)#
+relu1 <- mx.symbol.Activation(data=conv1, act_type="relu")#
+pool1 <- mx.symbol.Pooling(data=relu1, pool_type="max", kernel=c(2,2), stride=c(2,2))#
+# second conv#
+conv2 <- mx.symbol.Convolution(data=pool1, kernel=c(5,5), num_filter=50)#
+relu2 <- mx.symbol.Activation(data=conv2, act_type="relu")#
+pool2 <- mx.symbol.Pooling(data=relu2, pool_type="max", kernel=c(2,2), stride=c(2,2))#
+# first fullc#
+flatten <- mx.symbol.Flatten(data=pool2)#
+fc1 <- mx.symbol.FullyConnected(data=flatten, num_hidden=500)#
+relu3 <- mx.symbol.Activation(data=fc1, act_type="relu")#
+# second fullc#
+fc2 <- mx.symbol.FullyConnected(data=relu3, num_hidden=10)#
+# loss#
+lenet <- mx.symbol.SoftmaxOutput(data=fc2)#
+train.array <- train.x#
+dim(train.array) <- c(28, 28, 1, ncol(train.x))#
+test.array <- test#
+dim(test.array) <- c(28, 28, 1, ncol(test))#
+mx.set.seed(0)#
+tic <- proc.time()#
+model <- mx.model.FeedForward.create(#
+  lenet, X=train.array, y=train.y,#
+  ctx=devices, num.round=20, array.batch.size=100,#
+  learning.rate=0.05, momentum=0.9, wd=0.00001,#
+  eval.metric=mx.metric.accuracy,#
+  epoch.end.callback=mx.callback.log.train.metric(100)#
+  )
+devices <- mx.cpu()
+model <- mx.model.FeedForward.create(#
+  lenet, X=train.array, y=train.y,#
+  ctx=devices, num.round=20, array.batch.size=100,#
+  learning.rate=0.05, momentum=0.9, wd=0.00001,#
+  eval.metric=mx.metric.accuracy,#
+  epoch.end.callback=mx.callback.log.train.metric(100)#
+  )
+print(graph.vix(model))
+print(graph.vis(model))
+print(graph.viz(model))
+print(graph.viz(model$symbol$as.jason()))
+print(graph.viz(lenet$as.json()))
+rm(list = ls())
+library(mxnet)
+?mx.symbol.SoftmaxOutput
+?optim
+pars <- rep(1, 35)
+sigma_post <- function(t, season, x){#
+  Sig0 <- x[1]*diag(30) # Sigma_0#
+  sigV <- x[2] # sigma_V#
+  sigW <- x[3] # sigma_W#
+  u <- x[4:35] # coefficients of covariates#
+  M <- sigV*diag(30) # cov matrix of v#
+  if(t > 0){#
+    Ct <- as.matrix(getC(t, season)) # C_t#
+    mt <- nrow(Ct)  # m: number of games on day t#
+    Nt <- sigW*diag(mt) # cov matrix of w#
+    sprev <- sigma_pred(t, season)#
+    return(sprev - #
+             sprev%*%t(Ct)%*%#
+             solve(Ct%*%sprev%*%t(Ct) + Nt)%*%#
+             Ct%*%sprev)#
+  }#
+  else{#
+    Sig0 + M#
+  }#
+}
+sigma_post(3,1,pars)
+citation("retrosheet")
+citation
+citation()
+citation("FKF")
+slices <- c(2429, 2430, 2431, 2430, 2429)
+sum(slices)
+barplot(slices)
+c(2,5,6)^2
+?readLines
+STDIN
+n = 5
+for(i in 1:n){}
+for(i in 1:n){ cat(rep(" ", n-i), rep("#", i)}
+for(i in 1:n){ cat(rep(" ", n-i), rep("#", i))}
+for(i in 1:n){ cat(rep(" ", n-i), rep("#", i), "\n")}
+a = NULL
+for(i in 1:n){ a = cat(a, rep(" ", n-i), rep("#", i), "\n")}
+a
+for(i in 1:n){ a = c(a, rep(" ", n-i), rep("#", i), "\n")}
+a
+print(a)
+write(a)
+?cat
+12-(8*16/60)
+(12-(8*16/60))/(16/60)
+1-(6/7)
+23-7
+(1e-5)
+1/100000
+(1e-5)/(0.01*(1-1e-5)+0.99*1e-5)
+table(0)
+table(NULL)
+table(NULL)>1
+sum(table(NULL)>1)
+setwd("./Github/mmbaduk/")
+source("mmbaduk.cnn.R")
+t0 <- proc.time()#
+sims08 <- cnnrandsim(250)#
+proctime08 <- proc.time() - t0#
+save(sims08, proctime08, file = "./sims/sim08-250.RData")
+library(mxnet)#
+tempwd <- getwd()#
+setwd("./sims")#
+filenames <- list.files(pattern = "*.RData")#
+filesloaded <- lapply(filenames, load, .GlobalEnv)#
+setwd(tempwd)#
+#
+nfil = 64 # number of filters; AlphaGo: 196#
+batchsize = 4 # batch size; AlphaGo: 32 #
+#
+## define input#
+cnn.in <- list(state = array(cbind(sims01$state, sims02$state, sims03$state, sims04$state,#
+                         sims05$state, sims06$state, sims07$state, sims08$state),#
+                         dim = c(19,19,49, 250*8)),#
+               res = factor(c(sims01$res, sims02$res, sims03$res, sims04$res,#
+                          sims05$res, sims06$res, sims07$res, sims08$res)),#
+               playnum = c(sims01$playnum, sims02$playnum, sims03$playnum, sims04$playnum,#
+                           sims05$playnum, sims06$playnum, sims07$playnum, sims08$playnum))#
+#
+cnn.inL <- cnn.in#
+cnn.inL$res <- cnn.in$res == 1#
+#
+set.seed(20150819)#
+trainind <- sample.int(500, 300)#
+testind <- which(!1:500 %in% trainind)#
+#
+data.cnn.train <- mx.io.arrayiter(cnn.in$state[,,,trainind],#
+                            cnn.in$res[trainind], batch.size = 1, TRUE)#
+data.cnn.trainL <- mx.io.arrayiter(cnn.inL$state[,,,trainind],#
+                                  cnn.inL$res[trainind], batch.size = 1, TRUE)#
+mx.set.seed(20150819)#
+## define model structure#
+data <- mx.symbol.Variable('data') # input#
+conv1 <- mx.symbol.Convolution(#
+  name = "conv1",#
+  data = data, #
+  pad = c(2,2),     ## zero-pads input 19 x 19 to 23 x 23#
+  kernel = c(5,5),  ## 5 x 5 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu1 <- mx.symbol.Activation(data = conv1, act_type = "relu")#
+#
+conv2 <- mx.symbol.Convolution(#
+  name = "conv2",#
+  data = relu1, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu2 <- mx.symbol.Activation(data = conv2, act_type = "relu")#
+#
+conv3 <- mx.symbol.Convolution(#
+  name = "conv3",#
+  data = relu2, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu3 <- mx.symbol.Activation(data = conv3, act_type = "relu")#
+#
+conv4 <- mx.symbol.Convolution(#
+  name = "conv4",#
+  data = relu3, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu4 <- mx.symbol.Activation(data = conv4, act_type = "relu")#
+#
+conv5 <- mx.symbol.Convolution(#
+  name = "conv5",#
+  data = relu4, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu5 <- mx.symbol.Activation(data = conv5, act_type = "relu")#
+#
+conv6 <- mx.symbol.Convolution(#
+  name = "conv6",#
+  data = relu5, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu6 <- mx.symbol.Activation(data = conv6, act_type = "relu")#
+#
+conv7 <- mx.symbol.Convolution(#
+  name = "conv7",#
+  data = relu6, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu7 <- mx.symbol.Activation(data = conv7, act_type = "relu")#
+#
+conv8 <- mx.symbol.Convolution(#
+  name = "conv8",#
+  data = relu7, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu8 <- mx.symbol.Activation(data = conv8, act_type = "relu")#
+#
+conv9 <- mx.symbol.Convolution(#
+  name = "conv9",#
+  data = relu8, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu9 <- mx.symbol.Activation(data = conv9, act_type = "relu")#
+#
+conv10 <- mx.symbol.Convolution(#
+  name = "conv10",#
+  data = relu9, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu10 <- mx.symbol.Activation(data = conv9, act_type = "relu")#
+#
+conv11 <- mx.symbol.Convolution(#
+  name = "conv11",#
+  data = relu10, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu11 <- mx.symbol.Activation(data = conv11, act_type = "relu")#
+#
+conv12 <- mx.symbol.Convolution(#
+  name = "conv12",#
+  data = relu11, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu12 <- mx.symbol.Activation(data = conv12, act_type = "relu")#
+#
+######### 5 Layer #########
+conv.f <- mx.symbol.Convolution(#
+  name = "conv.f",#
+  data = relu2, #
+  kernel = c(1,1),  ## 1 x 1 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu.f <- mx.symbol.Activation(data = conv.f, act_type = "relu")#
+#
+fc.256 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 256)#
+relu.fc <- mx.symbol.Activation(data = fc.256, act_type = "relu")#
+fc.1 <- mx.symbol.FullyConnected(data = relu.fc, num.hidden = 2)#
+out.cnn <- mx.symbol.SoftmaxOutput(data = fc.1)#
+#
+t0 <- proc.time()#
+cnn.model.5 <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.train, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 10, array.batch.size = batchsize,#
+  learning.rate = 0.003, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.5 <- proc.time() - t0
+proctime.model.5
+##############################################################
+# mmbaduk - Baduk (Go) player by michael moon               ##
+#                                                           ##
+# construct the convultional neural network structure       ##
+#                                                           ##
+##############################################################
+library(mxnet)#
+tempwd <- getwd()#
+setwd("./sims")#
+filenames <- list.files(pattern = "*.RData")#
+filesloaded <- lapply(filenames, load, .GlobalEnv)#
+setwd(tempwd)#
+#
+nfil = 64 # number of filters; AlphaGo: 196#
+batchsize = 4 # batch size; AlphaGo: 32 #
+#
+## define input#
+cnn.in <- list(state = array(cbind(sims01$state, sims02$state, sims03$state, sims04$state,#
+                         sims05$state, sims06$state, sims07$state, sims08$state),#
+                         dim = c(19,19,49, 250*8)),#
+               res = factor(c(sims01$res, sims02$res, sims03$res, sims04$res,#
+                          sims05$res, sims06$res, sims07$res, sims08$res)),#
+               playnum = c(sims01$playnum, sims02$playnum, sims03$playnum, sims04$playnum,#
+                           sims05$playnum, sims06$playnum, sims07$playnum, sims08$playnum))#
+#
+cnn.inL <- cnn.in#
+cnn.inL$res <- cnn.in$res == 1#
+#
+set.seed(20150819)#
+trainind <- sample.int(50, 30)#
+testind <- which(!1:50 %in% trainind)#
+#
+mx.set.seed(20150819)#
+data.cnn.train <- mx.io.arrayiter(cnn.in$state[,,,trainind],#
+                            cnn.in$res[trainind], batch.size = batchsize, TRUE)#
+data.cnn.trainL <- mx.io.arrayiter(cnn.inL$state[,,,trainind],#
+                                  cnn.inL$res[trainind], batch.size = batchsize, TRUE)#
+#
+## define model structure#
+data <- mx.symbol.Variable('data') # input#
+conv1 <- mx.symbol.Convolution(#
+  name = "conv1",#
+  data = data, #
+  pad = c(2,2),     ## zero-pads input 19 x 19 to 23 x 23#
+  kernel = c(5,5),  ## 5 x 5 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu1 <- mx.symbol.Activation(data = conv1, act_type = "relu")#
+#
+conv2 <- mx.symbol.Convolution(#
+  name = "conv2",#
+  data = relu1, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu2 <- mx.symbol.Activation(data = conv2, act_type = "relu")
+head(cnn.in$state[,,,4])
+head(cnn.in$state[,,,4, drop = FALSE])
+head(cnn.in$state[,2,,4, drop = FALSE])
+head(cnn.in$state[,1,,4, drop = FALSE])
+head(cnn.in$state[,,2,4, drop = FALSE])
+head(cnn.in$state[,,3,4, drop = FALSE])
+head(cnn.in$state[,,3,5, drop = FALSE])
+out.cnn <- mx.symbol.SoftmaxOutput(data = relu1, name = 'softmax')
+cnn.model.9 <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.train, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 10, array.batch.size = batchsize,#
+  learning.rate = 0.003, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)
+out.cnn <- mx.symbol.LogisticRegression(data = relu1, name = 'softmax')
+out.cnn <- mx.symbol.LogisticRegressionOutput(data = relu1, name = 'softmax')
+cnn.model.9 <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.train, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 10, array.batch.size = batchsize,#
+  learning.rate = 0.003, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)
+??mx.symbol.SoftmaxOutput
+out.cnn <- mx.symbol.SoftmaxOutput(data = relu1, name = 'softmax', multi.output)
+out.cnn <- mx.symbol.SoftmaxOutput(data = relu1, name = 'softmax', multi.output = TRUE)
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.train, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 10, array.batch.size = batchsize,#
+  learning.rate = 0.003, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)
+?mx.symbol.Pooling
+out.pool <- mx.symbol.Pooling(data = relu1, kernel = c(1,1), pool.type = 'sum')
+out.cnn <- mx.symbol.SoftmaxOutput(data = out.pool, name = 'softmax', multi.output = TRUE)
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.train, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 10, array.batch.size = batchsize,#
+  learning.rate = 0.003, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)
+out.cnn <- mx.symbol.SoftmaxOutput(data = conv1, name = 'softmax', multi.output = TRUE)
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.train, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 10, array.batch.size = batchsize,#
+  learning.rate = 0.003, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)
+out.cnn <- mx.symbol.SoftmaxOutput(data = conv1, name = 'softmax')
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.train, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 10, array.batch.size = batchsize,#
+  learning.rate = 0.003, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)
+dim(cnn.in$state)
+conv.f <- mx.symbol.Convolution(#
+  name = "conv.f",#
+  data = data, #
+  kernel = c(1,1),  ## 1 x 1 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu.f <- mx.symbol.Activation(data = conv.f, act_type = "relu")#
+#
+fc.256 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 256)#
+relu.fc <- mx.symbol.Activation(data = fc.256, act_type = "relu")#
+fc.1 <- mx.symbol.FullyConnected(data = relu.fc, num.hidden = 2)#
+out.cnn <- mx.symbol.SoftmaxOutput(data = fc.1, name = "softmax")#
+#
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.train, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 10, array.batch.size = batchsize,#
+  learning.rate = 0.003, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+dim(cnn.model$arg.params)
+dim(cnn.model$arg.params$conv.f_weight)
+dim(cnn.model$arg.params$fullyconnected0_weight)
+conv.f <- mx.symbol.Convolution(#
+  name = "conv.f",#
+  data = data, #
+  pad = c(2,2),     ## zero-pads input 19 x 19 to 23 x 23#
+  kernel = c(5,5),  ## 5 x 5 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu.f <- mx.symbol.Activation(data = conv.f, act_type = "relu")#
+#
+fc.256 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 256)#
+relu.fc <- mx.symbol.Activation(data = fc.256, act_type = "relu")#
+fc.1 <- mx.symbol.FullyConnected(data = relu.fc, num.hidden = 2)#
+out.cnn <- mx.symbol.SoftmaxOutput(data = fc.1, name = "softmax")#
+#
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.train, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 10, array.batch.size = batchsize,#
+  learning.rate = 0.003, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+dim(cnn.model$arg.params$fullyconnected0_weight)
+dim(cnn.model$arg.params$conv.f_weight)
+dim(cnn.model$arg.params$fullyconnected2_weight)
+nfil = 128 # number of filters; AlphaGo: 196
+conv.f <- mx.symbol.Convolution(#
+  name = "conv.f",#
+  data = data, #
+  pad = c(2,2),     ## zero-pads input 19 x 19 to 23 x 23#
+  kernel = c(5,5),  ## 5 x 5 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu.f <- mx.symbol.Activation(data = conv.f, act_type = "relu")#
+#
+fc.256 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 256)#
+relu.fc <- mx.symbol.Activation(data = fc.256, act_type = "relu")#
+fc.1 <- mx.symbol.FullyConnected(data = relu.fc, num.hidden = 2)#
+out.cnn <- mx.symbol.SoftmaxOutput(data = fc.1, name = "softmax")#
+#
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.train, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 10, array.batch.size = batchsize,#
+  learning.rate = 0.003, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+dim(cnn.model$arg.params$fullyconnected2_weight)
+dim(cnn.model$arg.params$fullyconnected4_weight)
+nfil = 32 # number of filters; AlphaGo: 196
+conv.f <- mx.symbol.Convolution(#
+  name = "conv.f",#
+  data = data, #
+  pad = c(2,2),     ## zero-pads input 19 x 19 to 23 x 23#
+  kernel = c(5,5),  ## 5 x 5 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu.f <- mx.symbol.Activation(data = conv.f, act_type = "relu")#
+#
+fc.256 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 256)#
+relu.fc <- mx.symbol.Activation(data = fc.256, act_type = "relu")#
+fc.1 <- mx.symbol.FullyConnected(data = relu.fc, num.hidden = 2)#
+out.cnn <- mx.symbol.SoftmaxOutput(data = fc.1, name = "softmax")#
+#
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.train, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 10, array.batch.size = batchsize,#
+  learning.rate = 0.003, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.train, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 10, array.batch.size = batchsize,#
+  learning.rate = 0.5, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+conv.f <- mx.symbol.Convolution(#
+  name = "conv.f",#
+  data = relu6, #
+  kernel = c(1,1),  ## 1 x 1 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu.f <- mx.symbol.Activation(data = conv.f, act_type = "relu")#
+#
+fc.256 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 256)#
+relu.fc <- mx.symbol.Activation(data = fc.256, act_type = "relu")#
+fc.1 <- mx.symbol.FullyConnected(data = relu.fc, num.hidden = 2)#
+out.cnn <- mx.symbol.SoftmaxOutput(data = fc.1, name = "softmax")#
+#
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.train, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 10, array.batch.size = batchsize,#
+  learning.rate = 0.5, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+data <- mx.symbol.Variable('data') # input#
+conv1 <- mx.symbol.Convolution(#
+  name = "conv1",#
+  data = data, #
+  pad = c(2,2),     ## zero-pads input 19 x 19 to 23 x 23#
+  kernel = c(5,5),  ## 5 x 5 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu1 <- mx.symbol.Activation(data = conv1, act_type = "relu")#
+#
+conv2 <- mx.symbol.Convolution(#
+  name = "conv2",#
+  data = relu1, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu2 <- mx.symbol.Activation(data = conv2, act_type = "relu")#
+#
+conv3 <- mx.symbol.Convolution(#
+  name = "conv3",#
+  data = relu2, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu3 <- mx.symbol.Activation(data = conv3, act_type = "relu")#
+#
+conv4 <- mx.symbol.Convolution(#
+  name = "conv4",#
+  data = relu3, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu4 <- mx.symbol.Activation(data = conv4, act_type = "relu")#
+#
+conv5 <- mx.symbol.Convolution(#
+  name = "conv5",#
+  data = relu4, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu5 <- mx.symbol.Activation(data = conv5, act_type = "relu")#
+#
+conv6 <- mx.symbol.Convolution(#
+  name = "conv6",#
+  data = relu5, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu6 <- mx.symbol.Activation(data = conv6, act_type = "relu")#
+#
+conv7 <- mx.symbol.Convolution(#
+  name = "conv7",#
+  data = relu6, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu7 <- mx.symbol.Activation(data = conv7, act_type = "relu")#
+#
+conv8 <- mx.symbol.Convolution(#
+  name = "conv8",#
+  data = relu7, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu8 <- mx.symbol.Activation(data = conv8, act_type = "relu")#
+#
+conv9 <- mx.symbol.Convolution(#
+  name = "conv9",#
+  data = relu8, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu9 <- mx.symbol.Activation(data = conv9, act_type = "relu")#
+#
+conv10 <- mx.symbol.Convolution(#
+  name = "conv10",#
+  data = relu9, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu10 <- mx.symbol.Activation(data = conv9, act_type = "relu")#
+#
+conv11 <- mx.symbol.Convolution(#
+  name = "conv11",#
+  data = relu10, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu11 <- mx.symbol.Activation(data = conv11, act_type = "relu")#
+#
+conv12 <- mx.symbol.Convolution(#
+  name = "conv12",#
+  data = relu11, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu12 <- mx.symbol.Activation(data = conv12, act_type = "relu")
+conv.f <- mx.symbol.Convolution(#
+  name = "conv.f",#
+  data = relu6, #
+  kernel = c(1,1),  ## 1 x 1 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu.f <- mx.symbol.Activation(data = conv.f, act_type = "relu")#
+#
+fc.256 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 256)#
+relu.fc <- mx.symbol.Activation(data = fc.256, act_type = "relu")#
+fc.1 <- mx.symbol.FullyConnected(data = relu.fc, num.hidden = 2)#
+out.cnn <- mx.symbol.SoftmaxOutput(data = fc.1, name = "softmax")#
+#
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.train, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 10, array.batch.size = batchsize,#
+  learning.rate = 0.5, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+dim(cnn.model$arg.params$conv.f_weight)
+dim(cnn.model$arg.params$conv4_weight)
+dim(cnn.model$arg.params$conv1_weight)
+dim(cnn.model$arg.params$fullyconnected10_weight)
+dim(cnn.model$arg.params$fullyconnected11_weight)
+conv.f <- mx.symbol.Convolution(#
+  name = "conv.f",#
+  data = relu6, #
+  kernel = c(1,1),  ## 1 x 1 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu.f <- mx.symbol.Activation(data = conv.f, act_type = "relu")#
+#
+fc.256 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 256, name = "fc256")#
+relu.fc <- mx.symbol.Activation(data = fc.256, act_type = "relu")#
+fc.1 <- mx.symbol.FullyConnected(data = relu.fc, num.hidden = 2, name = "fc1")#
+out.cnn <- mx.symbol.SoftmaxOutput(data = fc.1, name = "softmax")#
+#
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.train, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 10, array.batch.size = batchsize,#
+  learning.rate = 0.5, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.train, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 3, array.batch.size = batchsize,#
+  learning.rate = 0.5, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+dim(cnn.model$arg.params$fc256_weight)
+dim(cnn.model$symbol)
+predict(cnn.model, cnn.in$state[,,,10, drop = FALSE], ctx = mx.cpu())
+predict(cnn.model, cnn.in$state[,,,2000, drop = FALSE], ctx = mx.cpu())
+predict(cnn.model, cnn.in$state[,,,1900:2000, drop = FALSE], ctx = mx.cpu())
+conv.f <- mx.symbol.Convolution(#
+  name = "conv.f",#
+  data = relu1, #
+  kernel = c(1,1),  ## 1 x 1 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu.f <- mx.symbol.Activation(data = conv.f, act_type = "relu")#
+#
+fc.256 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 256, name = "fc256")#
+relu.fc <- mx.symbol.Activation(data = fc.256, act_type = "relu")#
+fc.1 <- mx.symbol.FullyConnected(data = relu.fc, num.hidden = 2, name = "fc1")#
+out.cnn <- mx.symbol.SoftmaxOutput(data = fc.1, name = "softmax")#
+#
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.train, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 3, array.batch.size = batchsize,#
+  learning.rate = 0.5, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+predict(cnn.model, cnn.in$state[,,,1900:2000, drop = FALSE], ctx = mx.cpu())
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.train, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 1, array.batch.size = batchsize,#
+  learning.rate = 0.5, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+predict(cnn.model, cnn.in$state[,,,1900:2000, drop = FALSE], ctx = mx.cpu())
+out.cnn <- mx.symbol.LogisticRegressionOutput(data = fc.1, name = "softmax")
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.train, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 1, array.batch.size = batchsize,#
+  learning.rate = 0.5, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+fc.1 <- mx.symbol.FullyConnected(data = relu.fc, num.hidden = 1, name = "fc1")#
+out.cnn <- mx.symbol.LogisticRegressionOutput(data = fc.1, name = "softmax")#
+#
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.train, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 1, array.batch.size = batchsize,#
+  learning.rate = 0.5, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+out.cnn <- mx.symbol.LogisticRegressionOutput(data = fc.1, name = "softmax")
+predict(cnn.model, cnn.in$state[,,,1900:2000, drop = FALSE], ctx = mx.cpu())
+fc.256 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 256, name = "fc256")#
+relu.fc <- mx.symbol.Activation(data = fc.256, act_type = "relu")#
+fc.1 <- mx.symbol.FullyConnected(data = relu.fc, num.hidden = 1, name = "fc1")#
+out.cnn <- mx.symbol.LogisticRegressionOutput(data = fc.1, name = "softmax")#
+#
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.trainL, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 1, array.batch.size = batchsize,#
+  learning.rate = 0.5, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+predict(cnn.model, cnn.in$state[,,,1900:2000, drop = FALSE], ctx = mx.cpu())
+table(cnn.in$res)
+934/2000
+table(cnn.in$res[1:50])
+table(cnn.in$res[trainind])
+11/30
+conv.f <- mx.symbol.Convolution(#
+  name = "conv.f",#
+  data = relu1, #
+  kernel = c(1,1),  ## 1 x 1 kernel#
+  stride = c(1,1),  ## 1 stride#
+  num_filter = nfil  #
+)#
+relu.f <- mx.symbol.Activation(data = conv.f, act_type = "relu")#
+#
+fc.256 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 256, name = "fc256")#
+relu.fc <- mx.symbol.Activation(data = fc.256, act_type = "relu")#
+fc.1 <- mx.symbol.FullyConnected(data = relu.fc, num.hidden = 1, name = "fc1")#
+out.cnn <- mx.symbol.LogisticRegressionOutput(data = fc.1, name = "softmax")#
+#
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.trainL, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 1, array.batch.size = batchsize,#
+  learning.rate = 0.5, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+predict(cnn.model, cnn.in$state[,,,1900:2000, drop = FALSE], ctx = mx.cpu())
+cnn.model$arg.params$conv1_weight
+cnn.model$arg.params$conv.f_weight
+cnn.model$arg.params$fc256_bias
+fc.1 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 1, name = "fc1")#
+out.cnn <- mx.symbol.LogisticRegressionOutput(data = fc.1, name = "softmax")#
+#
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.trainL, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 1, array.batch.size = batchsize,#
+  learning.rate = 0.5, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+predict(cnn.model, cnn.in$state[,,,1900:2000, drop = FALSE], ctx = mx.cpu())
+conv.f <- mx.symbol.Convolution(#
+  name = "conv.f",#
+  data = relu6, #
+  kernel = c(1,1),  ## 1 x 1 kernel#
+  stride = c(1,1),  ## 1 stride#
+  num_filter = nfil  #
+)#
+relu.f <- mx.symbol.Activation(data = conv.f, act_type = "relu")#
+#
+fc.256 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 256, name = "fc256")#
+relu.fc <- mx.symbol.Activation(data = fc.256, act_type = "relu")#
+fc.1 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 1, name = "fc1")#
+out.cnn <- mx.symbol.LogisticRegressionOutput(data = fc.1, name = "softmax")#
+#
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.trainL, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 1, array.batch.size = batchsize,#
+  learning.rate = 0.005#
+  #, momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+conv.f <- mx.symbol.Convolution(#
+  name = "conv.f",#
+  data = relu6, #
+  kernel = c(1,1),  ## 1 x 1 kernel#
+  stride = c(1,1),  ## 1 stride#
+  num_filter = nfil  #
+)#
+relu.f <- mx.symbol.Activation(data = conv.f, act_type = "relu")#
+#
+fc.256 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 256, name = "fc256")#
+relu.fc <- mx.symbol.Activation(data = fc.256, act_type = "relu")#
+fc.1 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 1, name = "fc1")#
+out.cnn <- mx.symbol.LogisticRegressionOutput(data = fc.1, name = "softmax")#
+#
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.trainL, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 1, array.batch.size = batchsize,#
+  learning.rate = 0.005, #
+  #momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+predict(cnn.model, cnn.in$state[,,,1900:2000, drop = FALSE], ctx = mx.cpu())
+conv.f <- mx.symbol.Convolution(#
+  name = "conv.f",#
+  data = relu13, #
+  kernel = c(1,1),  ## 1 x 1 kernel#
+  stride = c(1,1),  ## 1 stride#
+  num_filter = nfil  #
+)#
+relu.f <- mx.symbol.Activation(data = conv.f, act_type = "relu")#
+#
+fc.256 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 256, name = "fc256")#
+relu.fc <- mx.symbol.Activation(data = fc.256, act_type = "relu")#
+fc.1 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 1, name = "fc1")#
+out.cnn <- mx.symbol.LogisticRegressionOutput(data = fc.1, name = "softmax")#
+#
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.trainL, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 1, array.batch.size = batchsize,#
+  learning.rate = 0.005, #
+  #momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+conv.f <- mx.symbol.Convolution(#
+  name = "conv.f",#
+  data = relu12, #
+  kernel = c(1,1),  ## 1 x 1 kernel#
+  stride = c(1,1),  ## 1 stride#
+  num_filter = nfil  #
+)#
+relu.f <- mx.symbol.Activation(data = conv.f, act_type = "relu")#
+#
+fc.256 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 256, name = "fc256")#
+relu.fc <- mx.symbol.Activation(data = fc.256, act_type = "relu")#
+fc.1 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 1, name = "fc1")#
+out.cnn <- mx.symbol.LogisticRegressionOutput(data = fc.1, name = "softmax")#
+#
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.trainL, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 1, array.batch.size = batchsize,#
+  learning.rate = 0.005, #
+  #momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+predict(cnn.model, cnn.in$state[,,,1900:2000, drop = FALSE], ctx = mx.cpu())
+data.cnn.train <- mx.io.arrayiter(cnn.in$state[,,,trainind] == 1,#
+                            cnn.in$res[trainind], batch.size = batchsize, TRUE)
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.trainL, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 1, array.batch.size = batchsize,#
+  learning.rate = 0.005, #
+  #momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+predict(cnn.model, cnn.in$state[,,,1900:2000, drop = FALSE] == 1, ctx = mx.cpu())
+nfil = 128 # number of filters; AlphaGo: 196
+data.cnn.trainL <- mx.io.arrayiter(cnn.inL$state[,,,trainind] == 1,#
+                                  cnn.inL$res[trainind], batch.size = batchsize, TRUE)
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.trainL, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 1, array.batch.size = batchsize,#
+  learning.rate = 0.005, #
+  #momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+data.cnn.trainL <- mx.io.arrayiter(cnn.inL$state[,,,trainind] == 1,#
+                                  cnn.inL$res[trainind], batch.size = batchsize, TRUE)
+predict(cnn.model, cnn.in$state[,,,1900:2000, drop = FALSE] == 1, ctx = mx.cpu())
+nfil = 128 # number of filters; AlphaGo: 196#
+batchsize = 4 # batch size; AlphaGo: 32 #
+#
+## define input#
+cnn.in <- list(state = array(cbind(sims01$state, sims02$state, sims03$state, sims04$state,#
+                         sims05$state, sims06$state, sims07$state, sims08$state),#
+                         dim = c(19,19,49, 250*8)),#
+               res = factor(c(sims01$res, sims02$res, sims03$res, sims04$res,#
+                          sims05$res, sims06$res, sims07$res, sims08$res)),#
+               playnum = c(sims01$playnum, sims02$playnum, sims03$playnum, sims04$playnum,#
+                           sims05$playnum, sims06$playnum, sims07$playnum, sims08$playnum))#
+#
+cnn.inL <- cnn.in#
+cnn.inL$res <- cnn.in$res == 1#
+#
+set.seed(20150819)#
+trainind <- sample.int(50, 30)#
+testind <- which(!1:50 %in% trainind)#
+#
+mx.set.seed(20150819)#
+data.cnn.train <- mx.io.arrayiter(cnn.in$state[,,,trainind],#
+                            cnn.in$res[trainind], batch.size = batchsize, TRUE)#
+data.cnn.trainL <- mx.io.arrayiter(cnn.inL$state[,,,trainind],#
+                                  cnn.inL$res[trainind], batch.size = batchsize, TRUE)#
+#
+## define model structure#
+data <- mx.symbol.Variable('data') # input#
+conv1 <- mx.symbol.Convolution(#
+  name = "conv1",#
+  data = data, #
+  pad = c(2,2),     ## zero-pads input 19 x 19 to 23 x 23#
+  kernel = c(5,5),  ## 5 x 5 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu1 <- mx.symbol.Activation(data = conv1, act_type = "relu")#
+#
+conv2 <- mx.symbol.Convolution(#
+  name = "conv2",#
+  data = relu1, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu2 <- mx.symbol.Activation(data = conv2, act_type = "relu")#
+#
+conv3 <- mx.symbol.Convolution(#
+  name = "conv3",#
+  data = relu2, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu3 <- mx.symbol.Activation(data = conv3, act_type = "relu")#
+#
+conv4 <- mx.symbol.Convolution(#
+  name = "conv4",#
+  data = relu3, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu4 <- mx.symbol.Activation(data = conv4, act_type = "relu")#
+#
+conv5 <- mx.symbol.Convolution(#
+  name = "conv5",#
+  data = relu4, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu5 <- mx.symbol.Activation(data = conv5, act_type = "relu")#
+#
+conv6 <- mx.symbol.Convolution(#
+  name = "conv6",#
+  data = relu5, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu6 <- mx.symbol.Activation(data = conv6, act_type = "relu")#
+#
+conv7 <- mx.symbol.Convolution(#
+  name = "conv7",#
+  data = relu6, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu7 <- mx.symbol.Activation(data = conv7, act_type = "relu")#
+#
+conv8 <- mx.symbol.Convolution(#
+  name = "conv8",#
+  data = relu7, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu8 <- mx.symbol.Activation(data = conv8, act_type = "relu")#
+#
+conv9 <- mx.symbol.Convolution(#
+  name = "conv9",#
+  data = relu8, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu9 <- mx.symbol.Activation(data = conv9, act_type = "relu")#
+#
+conv10 <- mx.symbol.Convolution(#
+  name = "conv10",#
+  data = relu9, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu10 <- mx.symbol.Activation(data = conv9, act_type = "relu")#
+#
+conv11 <- mx.symbol.Convolution(#
+  name = "conv11",#
+  data = relu10, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu11 <- mx.symbol.Activation(data = conv11, act_type = "relu")#
+#
+conv12 <- mx.symbol.Convolution(#
+  name = "conv12",#
+  data = relu11, #
+  pad = c(1,1),     ## zero-pads input 19 x 19 to 21 x 21#
+  kernel = c(3,3),  ## 3 x 3 kernel#
+  stride = c(1,1),  ## 1 stride#
+  no.bias = TRUE,#
+  num_filter = nfil  #
+)#
+relu12 <- mx.symbol.Activation(data = conv12, act_type = "relu")
+conv.f <- mx.symbol.Convolution(#
+  name = "conv.f",#
+  data = relu12, #
+  kernel = c(1,1),  ## 1 x 1 kernel#
+  stride = c(1,1),  ## 1 stride#
+  num_filter = nfil  #
+)#
+relu.f <- mx.symbol.Activation(data = conv.f, act_type = "relu")#
+#
+fc.256 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 256, name = "fc256")#
+relu.fc <- mx.symbol.Activation(data = fc.256, act_type = "relu")#
+fc.1 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 1, name = "fc1")#
+out.cnn <- mx.symbol.LogisticRegressionOutput(data = fc.1, name = "softmax")#
+#
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.trainL, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 1, array.batch.size = batchsize,#
+  learning.rate = 0.005, #
+  #momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+predict(cnn.model, cnn.in$state[,,,1900:2000, drop = FALSE] == 1, ctx = mx.cpu())
+conv.f <- mx.symbol.Convolution(#
+  name = "conv.f",#
+  data = relu12, #
+  kernel = c(1,1),  ## 1 x 1 kernel#
+  stride = c(1,1),  ## 1 stride#
+  num_filter = 1  #
+)#
+relu.f <- mx.symbol.Activation(data = conv.f, act_type = "relu")#
+#
+fc.256 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 256, name = "fc256")#
+relu.fc <- mx.symbol.Activation(data = fc.256, act_type = "relu")#
+fc.1 <- mx.symbol.FullyConnected(data = relu.f, num.hidden = 1, name = "fc1")#
+out.cnn <- mx.symbol.LogisticRegressionOutput(data = fc.1, name = "softmax")#
+#
+t0 <- proc.time()#
+cnn.model <- mx.model.FeedForward.create(#
+  out.cnn, X=data.cnn.trainL, optimizer = 'sgd',#
+  ctx = mx.cpu(), num.round = 1, array.batch.size = batchsize,#
+  learning.rate = 0.005, #
+  #momentum = 0.9, wd = 0.00001,#
+  eval.metric = mx.metric.accuracy#
+)#
+proctime.model.9 <- proc.time() - t0
+dim(cnn.model$arg.params$fc1_weight)
+trainind <- sample.int(2000, 1000)
+trainind
+testind <- sample(which(!1:2000 %in% trainind), 300)
+testind
+sum(testind %in% trainind)
+load("/Users/mjmoon/Github/mmbaduk/model05.RData")
+load("/Users/mjmoon/Github/mmbaduk/model05L.RData")
+load("/Users/mjmoon/Github/mmbaduk/model09.RData")
+load("/Users/mjmoon/Github/mmbaduk/model09L.RData")
+load("/Users/mjmoon/Github/mmbaduk/model15.RData")
+load("/Users/mjmoon/Github/mmbaduk/model15L.RData")
